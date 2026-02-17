@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
+import { useState } from "react";
+import Link from "next/link";
 import {
   Home,
   Building2,
@@ -22,17 +22,17 @@ import {
   Wallet,
   Menu,
   X,
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { DashboardHeader } from "@/components/dashboard-header"
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { DashboardHeader } from "@/components/dashboard-header";
 
 // Wallet balance - checked first before auto-deduction
 const walletData = {
   balance: 150000,
   lastTopUp: "Dec 28, 2024",
   autoPayEnabled: true,
-}
+};
 
 const currentLease = {
   property: "Modern 3 Bedroom Flat",
@@ -44,37 +44,58 @@ const currentLease = {
   totalOwed: 2580000,
   progress: 33,
   agent: { name: "Adebayo Johnson", avatar: "AJ" },
-}
+};
 
-const paymentSchedule = [
+type Payment =
+  | {
+      month: string;
+      amount: number;
+      status: "paid";
+      paidDate: string;
+    }
+  | {
+      month: string;
+      amount: number;
+      status: "upcoming" | "pending";
+      dueDate: string;
+    };
+
+const paymentSchedule: Payment[] = [
   { month: "Jan 2025", amount: 215000, status: "upcoming", dueDate: "Jan 15" },
   { month: "Feb 2025", amount: 215000, status: "pending", dueDate: "Feb 15" },
   { month: "Mar 2025", amount: 215000, status: "pending", dueDate: "Mar 15" },
   { month: "Apr 2025", amount: 215000, status: "pending", dueDate: "Apr 15" },
-]
+];
 
-const pastPayments = [
+const pastPayments: Payment[] = [
   { month: "Dec 2024", amount: 215000, status: "paid", paidDate: "Dec 12" },
   { month: "Nov 2024", amount: 215000, status: "paid", paidDate: "Nov 14" },
   { month: "Oct 2024", amount: 215000, status: "paid", paidDate: "Oct 13" },
-]
+];
 
 const savedProperties = [
-  { id: 1, title: "Luxury 2BR in VI", location: "Victoria Island", price: 2800000 },
+  {
+    id: 1,
+    title: "Luxury 2BR in VI",
+    location: "Victoria Island",
+    price: 2800000,
+  },
   { id: 2, title: "Spacious Studio", location: "Ikeja GRA", price: 1500000 },
-]
+];
 
 export default function TenantDashboard() {
-  const [activeTab, setActiveTab] = useState<"overview" | "payments" | "saved">("overview")
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [activeTab, setActiveTab] = useState<"overview" | "payments" | "saved">(
+    "overview",
+  );
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("en-NG", {
       style: "currency",
       currency: "NGN",
       minimumFractionDigits: 0,
-    }).format(amount)
-  }
+    }).format(amount);
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -90,14 +111,16 @@ export default function TenantDashboard() {
 
       {/* Mobile Overlay */}
       {sidebarOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-40 bg-foreground/50 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
-      <aside className={`fixed left-0 top-0 z-40 h-screen w-64 border-r-3 border-foreground bg-card pt-20 transition-transform lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <aside
+        className={`fixed left-0 top-0 z-40 h-screen w-64 border-r-3 border-foreground bg-card pt-20 transition-transform lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
+      >
         <div className="flex h-full flex-col px-4 py-6">
           <div className="mb-8 border-3 border-foreground bg-secondary p-4 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
             <p className="text-sm font-medium text-foreground">Logged in as</p>
@@ -139,6 +162,22 @@ export default function TenantDashboard() {
               Browse Properties
             </Link>
             <Link
+              href="/dashboard/tenant/rate-whistleblower"
+              className="flex items-center gap-3 border-3 border-foreground bg-card p-3 font-bold transition-all hover:bg-muted hover:shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]"
+              onClick={() => setSidebarOpen(false)}
+            >
+              <MessageSquare className="h-5 w-5" />
+              Rate Whistleblower
+            </Link>
+            <Link
+              href="/dashboard/tenant/settings"
+              className="flex items-center gap-3 border-3 border-foreground bg-card p-3 font-bold transition-all hover:bg-muted hover:shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]"
+              onClick={() => setSidebarOpen(false)}
+            >
+              <Settings className="h-5 w-5" />
+              Settings
+            </Link>
+            <Link
               href="/messages"
               className="flex items-center gap-3 border-3 border-foreground bg-card p-3 font-bold transition-all hover:bg-muted hover:shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]"
               onClick={() => setSidebarOpen(false)}
@@ -166,9 +205,12 @@ export default function TenantDashboard() {
         <div className="p-4 md:p-6 lg:p-8">
           {/* Header */}
           <div className="mb-6 md:mb-8">
-            <h1 className="text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">Welcome back, Ngozi!</h1>
+            <h1 className="text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
+              Welcome back, Ngozi!
+            </h1>
             <p className="mt-2 text-sm text-muted-foreground md:text-base lg:text-lg">
-              Your next payment of {formatCurrency(currentLease.monthlyPayment)} is due on {currentLease.nextPaymentDate}
+              Your next payment of {formatCurrency(currentLease.monthlyPayment)}{" "}
+              is due on {currentLease.nextPaymentDate}
             </p>
           </div>
 
@@ -180,8 +222,12 @@ export default function TenantDashboard() {
                   <CreditCard className="h-5 w-5 md:h-6 md:w-6" />
                 </div>
                 <div className="min-w-0">
-                  <p className="truncate text-xs text-muted-foreground md:text-sm">Next Payment</p>
-                  <p className="truncate text-base font-bold md:text-xl">{formatCurrency(currentLease.monthlyPayment)}</p>
+                  <p className="truncate text-xs text-muted-foreground md:text-sm">
+                    Next Payment
+                  </p>
+                  <p className="truncate text-base font-bold md:text-xl">
+                    {formatCurrency(currentLease.monthlyPayment)}
+                  </p>
                 </div>
               </div>
             </Card>
@@ -191,8 +237,12 @@ export default function TenantDashboard() {
                   <CheckCircle className="h-5 w-5 md:h-6 md:w-6" />
                 </div>
                 <div className="min-w-0">
-                  <p className="truncate text-xs text-muted-foreground md:text-sm">Total Paid</p>
-                  <p className="truncate text-base font-bold md:text-xl">{formatCurrency(currentLease.totalPaid)}</p>
+                  <p className="truncate text-xs text-muted-foreground md:text-sm">
+                    Total Paid
+                  </p>
+                  <p className="truncate text-base font-bold md:text-xl">
+                    {formatCurrency(currentLease.totalPaid)}
+                  </p>
                 </div>
               </div>
             </Card>
@@ -202,8 +252,14 @@ export default function TenantDashboard() {
                   <Clock className="h-5 w-5 md:h-6 md:w-6" />
                 </div>
                 <div className="min-w-0">
-                  <p className="truncate text-xs text-muted-foreground md:text-sm">Remaining</p>
-                  <p className="truncate text-base font-bold md:text-xl">{formatCurrency(currentLease.totalOwed - currentLease.totalPaid)}</p>
+                  <p className="truncate text-xs text-muted-foreground md:text-sm">
+                    Remaining
+                  </p>
+                  <p className="truncate text-base font-bold md:text-xl">
+                    {formatCurrency(
+                      currentLease.totalOwed - currentLease.totalPaid,
+                    )}
+                  </p>
                 </div>
               </div>
             </Card>
@@ -213,8 +269,12 @@ export default function TenantDashboard() {
                   <Calendar className="h-5 w-5 md:h-6 md:w-6" />
                 </div>
                 <div className="min-w-0">
-                  <p className="truncate text-xs text-muted-foreground md:text-sm">Lease Ends</p>
-                  <p className="truncate text-base font-bold md:text-xl">{currentLease.leaseEnd}</p>
+                  <p className="truncate text-xs text-muted-foreground md:text-sm">
+                    Lease Ends
+                  </p>
+                  <p className="truncate text-base font-bold md:text-xl">
+                    {currentLease.leaseEnd}
+                  </p>
                 </div>
               </div>
             </Card>
@@ -267,7 +327,10 @@ export default function TenantDashboard() {
                     <p className="text-sm text-muted-foreground">Your Agent</p>
                   </div>
                   <Link href="/messages" className="ml-auto">
-                    <Button size="sm" className="border-2 border-foreground bg-secondary font-bold">
+                    <Button
+                      size="sm"
+                      className="border-2 border-foreground bg-secondary font-bold"
+                    >
                       <MessageSquare className="mr-1 h-4 w-4" />
                       Message
                     </Button>
@@ -278,14 +341,14 @@ export default function TenantDashboard() {
               {/* Payment Progress */}
               <Card className="border-3 border-foreground p-6 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
                 <h3 className="mb-4 text-lg font-bold">Payment Progress</h3>
-                
+
                 <div className="mb-6">
                   <div className="mb-2 flex justify-between text-sm">
                     <span className="text-muted-foreground">Progress</span>
                     <span className="font-bold">{currentLease.progress}%</span>
                   </div>
                   <div className="h-6 border-3 border-foreground bg-muted">
-                    <div 
+                    <div
                       className="h-full bg-secondary transition-all"
                       style={{ width: `${currentLease.progress}%` }}
                     />
@@ -299,16 +362,27 @@ export default function TenantDashboard() {
                 <h4 className="mb-3 font-bold">Upcoming Payments</h4>
                 <div className="space-y-2">
                   {paymentSchedule.slice(0, 3).map((payment) => (
-                    <div key={payment.month} className="flex items-center justify-between border-b border-foreground/10 pb-2">
+                    <div
+                      key={payment.month}
+                      className="flex items-center justify-between border-b border-foreground/10 pb-2"
+                    >
                       <div className="flex items-center gap-2">
                         {payment.status === "upcoming" ? (
                           <AlertCircle className="h-4 w-4 text-primary" />
                         ) : (
                           <Clock className="h-4 w-4 text-muted-foreground" />
                         )}
-                        <span className={payment.status === "upcoming" ? "font-bold" : ""}>{payment.month}</span>
+                        <span
+                          className={
+                            payment.status === "upcoming" ? "font-bold" : ""
+                          }
+                        >
+                          {payment.month}
+                        </span>
                       </div>
-                      <span className="font-mono font-bold">{formatCurrency(payment.amount)}</span>
+                      <span className="font-mono font-bold">
+                        {formatCurrency(payment.amount)}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -325,14 +399,23 @@ export default function TenantDashboard() {
           {activeTab === "payments" && (
             <Card className="border-3 border-foreground p-6 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
               <h3 className="mb-6 text-lg font-bold">Payment History</h3>
-              
+
               <div className="space-y-3">
                 {[...pastPayments, ...paymentSchedule].map((payment, index) => (
-                  <div key={index} className="flex items-center justify-between border-b-2 border-foreground/10 pb-3 last:border-0">
+                  <div
+                    key={index}
+                    className="flex items-center justify-between border-b-2 border-foreground/10 pb-3 last:border-0"
+                  >
                     <div className="flex items-center gap-4">
-                      <div className={`flex h-10 w-10 items-center justify-center border-2 border-foreground ${
-                        payment.status === "paid" ? "bg-secondary" : payment.status === "upcoming" ? "bg-primary" : "bg-muted"
-                      }`}>
+                      <div
+                        className={`flex h-10 w-10 items-center justify-center border-2 border-foreground ${
+                          payment.status === "paid"
+                            ? "bg-secondary"
+                            : payment.status === "upcoming"
+                              ? "bg-primary"
+                              : "bg-muted"
+                        }`}
+                      >
                         {payment.status === "paid" ? (
                           <CheckCircle className="h-5 w-5" />
                         ) : (
@@ -342,16 +425,32 @@ export default function TenantDashboard() {
                       <div>
                         <p className="font-bold">{payment.month}</p>
                         <p className="text-sm text-muted-foreground">
-                          {payment.status === "paid" ? `Paid on ${payment.paidDate}` : `Due ${payment.dueDate}`}
+                          {"paidDate" in payment
+                            ? `Paid on ${payment.paidDate}`
+                            : "dueDate" in payment
+                              ? `Due ${payment.dueDate}`
+                              : null}
                         </p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="font-mono font-bold">{formatCurrency(payment.amount)}</p>
-                      <span className={`text-sm font-bold ${
-                        payment.status === "paid" ? "text-secondary" : payment.status === "upcoming" ? "text-primary" : "text-muted-foreground"
-                      }`}>
-                        {payment.status === "paid" ? "Paid" : payment.status === "upcoming" ? "Due Soon" : "Pending"}
+                      <p className="font-mono font-bold">
+                        {formatCurrency(payment.amount)}
+                      </p>
+                      <span
+                        className={`text-sm font-bold ${
+                          payment.status === "paid"
+                            ? "text-secondary"
+                            : payment.status === "upcoming"
+                              ? "text-primary"
+                              : "text-muted-foreground"
+                        }`}
+                      >
+                        {payment.status === "paid"
+                          ? "Paid"
+                          : payment.status === "upcoming"
+                            ? "Due Soon"
+                            : "Pending"}
                       </span>
                     </div>
                   </div>
@@ -364,7 +463,10 @@ export default function TenantDashboard() {
           {activeTab === "saved" && (
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {savedProperties.map((property) => (
-                <Card key={property.id} className="border-3 border-foreground p-0 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
+                <Card
+                  key={property.id}
+                  className="border-3 border-foreground p-0 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]"
+                >
                   <div className="relative border-b-3 border-foreground bg-muted p-8">
                     <Building2 className="mx-auto h-12 w-12 text-muted-foreground" />
                     <button className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center border-2 border-foreground bg-background">
@@ -373,8 +475,12 @@ export default function TenantDashboard() {
                   </div>
                   <div className="p-4">
                     <h4 className="font-bold">{property.title}</h4>
-                    <p className="text-sm text-muted-foreground">{property.location}</p>
-                    <p className="mt-2 text-lg font-bold text-primary">{formatCurrency(property.price)}/yr</p>
+                    <p className="text-sm text-muted-foreground">
+                      {property.location}
+                    </p>
+                    <p className="mt-2 text-lg font-bold text-primary">
+                      {formatCurrency(property.price)}/yr
+                    </p>
                     <Link href={`/properties/${property.id}`}>
                       <Button className="mt-3 w-full border-2 border-foreground bg-secondary font-bold">
                         View Property
@@ -387,7 +493,9 @@ export default function TenantDashboard() {
                 <Link href="/properties" className="text-center">
                   <Building2 className="mx-auto h-12 w-12 text-muted-foreground" />
                   <p className="mt-2 font-bold">Browse More Properties</p>
-                  <p className="text-sm text-muted-foreground">Find your next home</p>
+                  <p className="text-sm text-muted-foreground">
+                    Find your next home
+                  </p>
                 </Link>
               </Card>
             </div>
@@ -395,5 +503,5 @@ export default function TenantDashboard() {
         </div>
       </main>
     </div>
-  )
+  );
 }
