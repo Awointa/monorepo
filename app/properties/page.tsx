@@ -1,11 +1,21 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { Heart, MapPin, Bed, Bath, Square, Search, SlidersHorizontal, X, Home } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import {
+  Heart,
+  MapPin,
+  Bed,
+  Bath,
+  Square,
+  Search,
+  SlidersHorizontal,
+  X,
+  Home,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const properties = [
   {
@@ -19,6 +29,7 @@ const properties = [
     image: "/properties/lekki-flat.jpg",
     tag: "POPULAR",
     tagColor: "bg-primary",
+    whistleblower: { name: "Chiamaka Okonkwo", rating: 4.8, reviews: 24 },
   },
   {
     id: 2,
@@ -31,6 +42,7 @@ const properties = [
     image: "/properties/wuse-apt.jpg",
     tag: "NEW",
     tagColor: "bg-secondary",
+    whistleblower: { name: "Adanna Smith", rating: 4.9, reviews: 18 },
   },
   {
     id: 3,
@@ -43,6 +55,7 @@ const properties = [
     image: "/properties/ikoyi-duplex.jpg",
     tag: "PREMIUM",
     tagColor: "bg-accent",
+    whistleblower: { name: "Chioma Ukaegbu", rating: 4.7, reviews: 31 },
   },
   {
     id: 4,
@@ -55,6 +68,7 @@ const properties = [
     image: "/properties/yaba-studio.jpg",
     tag: null,
     tagColor: null,
+    whistleblower: { name: "Blessing Okafor", rating: 4.5, reviews: 12 },
   },
   {
     id: 5,
@@ -67,6 +81,7 @@ const properties = [
     image: "/properties/vi-flat.jpg",
     tag: "HOT",
     tagColor: "bg-destructive",
+    whistleblower: { name: "Tunde Adeyemi", rating: 4.6, reviews: 19 },
   },
   {
     id: 6,
@@ -79,6 +94,7 @@ const properties = [
     image: "/properties/gwarimpa-bungalow.jpg",
     tag: null,
     tagColor: null,
+    whistleblower: { name: "Folake Adekunle", rating: 4.4, reviews: 8 },
   },
   {
     id: 7,
@@ -91,6 +107,7 @@ const properties = [
     image: "/properties/ikeja-flat.jpg",
     tag: "NEW",
     tagColor: "bg-secondary",
+    whistleblower: { name: "Zainab Hassan", rating: 4.9, reviews: 27 },
   },
   {
     id: 8,
@@ -104,55 +121,66 @@ const properties = [
     tag: "LUXURY",
     tagColor: "bg-accent",
   },
-]
+];
 
-const locations = ["All Locations", "Lagos", "Abuja", "Port Harcourt"]
-const priceRanges = ["Any Price", "Under ₦2M", "₦2M - ₦5M", "₦5M - ₦10M", "Above ₦10M"]
-const bedOptions = ["Any", "1", "2", "3", "4+"]
+const locations = ["All Locations", "Lagos", "Abuja", "Port Harcourt"];
+const priceRanges = [
+  "Any Price",
+  "Under ₦2M",
+  "₦2M - ₦5M",
+  "₦5M - ₦10M",
+  "Above ₦10M",
+];
+const bedOptions = ["Any", "1", "2", "3", "4+"];
 
 export default function PropertiesPage() {
-  const [favorites, setFavorites] = useState<number[]>([])
-  const [searchQuery, setSearchQuery] = useState("")
-  const [selectedLocation, setSelectedLocation] = useState("All Locations")
-  const [selectedPrice, setSelectedPrice] = useState("Any Price")
-  const [selectedBeds, setSelectedBeds] = useState("Any")
-  const [showFilters, setShowFilters] = useState(false)
+  const [favorites, setFavorites] = useState<number[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState("All Locations");
+  const [selectedPrice, setSelectedPrice] = useState("Any Price");
+  const [selectedBeds, setSelectedBeds] = useState("Any");
+  const [showFilters, setShowFilters] = useState(false);
 
   const toggleFavorite = (id: number) => {
     setFavorites((prev) =>
       prev.includes(id) ? prev.filter((fid) => fid !== id) : [...prev, id]
-    )
-  }
+    );
+  };
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-NG", {
       style: "currency",
       currency: "NGN",
       minimumFractionDigits: 0,
-    }).format(price)
-  }
+    }).format(price);
+  };
 
   const filteredProperties = properties.filter((property) => {
-    const matchesSearch = property.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      property.location.toLowerCase().includes(searchQuery.toLowerCase())
-    
-    const matchesLocation = selectedLocation === "All Locations" ||
-      property.location.includes(selectedLocation)
-    
-    let matchesPrice = true
-    if (selectedPrice === "Under ₦2M") matchesPrice = property.price < 2000000
-    else if (selectedPrice === "₦2M - ₦5M") matchesPrice = property.price >= 2000000 && property.price <= 5000000
-    else if (selectedPrice === "₦5M - ₦10M") matchesPrice = property.price > 5000000 && property.price <= 10000000
-    else if (selectedPrice === "Above ₦10M") matchesPrice = property.price > 10000000
+    const matchesSearch =
+      property.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      property.location.toLowerCase().includes(searchQuery.toLowerCase());
 
-    let matchesBeds = true
+    const matchesLocation =
+      selectedLocation === "All Locations" ||
+      property.location.includes(selectedLocation);
+
+    let matchesPrice = true;
+    if (selectedPrice === "Under ₦2M") matchesPrice = property.price < 2000000;
+    else if (selectedPrice === "₦2M - ₦5M")
+      matchesPrice = property.price >= 2000000 && property.price <= 5000000;
+    else if (selectedPrice === "₦5M - ₦10M")
+      matchesPrice = property.price > 5000000 && property.price <= 10000000;
+    else if (selectedPrice === "Above ₦10M")
+      matchesPrice = property.price > 10000000;
+
+    let matchesBeds = true;
     if (selectedBeds !== "Any") {
-      if (selectedBeds === "4+") matchesBeds = property.beds >= 4
-      else matchesBeds = property.beds === parseInt(selectedBeds)
+      if (selectedBeds === "4+") matchesBeds = property.beds >= 4;
+      else matchesBeds = property.beds === parseInt(selectedBeds);
     }
 
-    return matchesSearch && matchesLocation && matchesPrice && matchesBeds
-  })
+    return matchesSearch && matchesLocation && matchesPrice && matchesBeds;
+  });
 
   return (
     <main className="min-h-screen bg-background">
@@ -163,7 +191,8 @@ export default function PropertiesPage() {
             Find Your <span className="text-primary">Perfect Home</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
-            Browse through our collection of verified rental properties. All listings come with our rent-now-pay-later option.
+            Browse through our collection of verified rental properties. All
+            listings come with our rent-now-pay-later option.
           </p>
         </div>
       </section>
@@ -182,16 +211,24 @@ export default function PropertiesPage() {
                 className="border-3 border-foreground bg-background pl-12 py-6 font-medium shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
               />
             </div>
-            
+
             <Button
               onClick={() => setShowFilters(!showFilters)}
               className="border-3 border-foreground bg-background px-6 py-6 font-bold text-foreground shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] md:w-auto"
             >
               <SlidersHorizontal className="mr-2 h-5 w-5" />
               Filters
-              {(selectedLocation !== "All Locations" || selectedPrice !== "Any Price" || selectedBeds !== "Any") && (
+              {(selectedLocation !== "All Locations" ||
+                selectedPrice !== "Any Price" ||
+                selectedBeds !== "Any") && (
                 <span className="ml-2 flex h-6 w-6 items-center justify-center bg-primary text-xs font-bold">
-                  {[selectedLocation !== "All Locations", selectedPrice !== "Any Price", selectedBeds !== "Any"].filter(Boolean).length}
+                  {
+                    [
+                      selectedLocation !== "All Locations",
+                      selectedPrice !== "Any Price",
+                      selectedBeds !== "Any",
+                    ].filter(Boolean).length
+                  }
                 </span>
               )}
             </Button>
@@ -201,24 +238,28 @@ export default function PropertiesPage() {
           {showFilters && (
             <div className="mt-6 border-3 border-foreground bg-background p-6 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="font-mono text-lg font-bold">Filter Properties</h3>
+                <h3 className="font-mono text-lg font-bold">
+                  Filter Properties
+                </h3>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => {
-                    setSelectedLocation("All Locations")
-                    setSelectedPrice("Any Price")
-                    setSelectedBeds("Any")
+                    setSelectedLocation("All Locations");
+                    setSelectedPrice("Any Price");
+                    setSelectedBeds("Any");
                   }}
                   className="text-sm underline"
                 >
                   Clear All
                 </Button>
               </div>
-              
+
               <div className="grid gap-6 md:grid-cols-3">
                 <div>
-                  <label className="mb-2 block font-mono text-sm font-bold">Location</label>
+                  <label className="mb-2 block font-mono text-sm font-bold">
+                    Location
+                  </label>
                   <div className="flex flex-wrap gap-2">
                     {locations.map((loc) => (
                       <button
@@ -237,7 +278,9 @@ export default function PropertiesPage() {
                 </div>
 
                 <div>
-                  <label className="mb-2 block font-mono text-sm font-bold">Price Range (Annual)</label>
+                  <label className="mb-2 block font-mono text-sm font-bold">
+                    Price Range (Annual)
+                  </label>
                   <div className="flex flex-wrap gap-2">
                     {priceRanges.map((range) => (
                       <button
@@ -256,7 +299,9 @@ export default function PropertiesPage() {
                 </div>
 
                 <div>
-                  <label className="mb-2 block font-mono text-sm font-bold">Bedrooms</label>
+                  <label className="mb-2 block font-mono text-sm font-bold">
+                    Bedrooms
+                  </label>
                   <div className="flex flex-wrap gap-2">
                     {bedOptions.map((beds) => (
                       <button
@@ -284,14 +329,22 @@ export default function PropertiesPage() {
         <div className="container mx-auto px-4">
           <div className="mb-6 flex items-center justify-between">
             <p className="text-muted-foreground">
-              Showing <span className="font-bold text-foreground">{filteredProperties.length}</span> properties
+              Showing{" "}
+              <span className="font-bold text-foreground">
+                {filteredProperties.length}
+              </span>{" "}
+              properties
             </p>
           </div>
 
           {filteredProperties.length === 0 ? (
             <div className="border-3 border-foreground bg-muted p-12 text-center shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
-              <p className="font-mono text-xl font-bold mb-2">No properties found</p>
-              <p className="text-muted-foreground">Try adjusting your filters or search query.</p>
+              <p className="font-mono text-xl font-bold mb-2">
+                No properties found
+              </p>
+              <p className="text-muted-foreground">
+                Try adjusting your filters or search query.
+              </p>
             </div>
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -305,25 +358,35 @@ export default function PropertiesPage() {
                       <Home className="h-12 w-12" />
                     </div>
                     {property.tag && (
-                      <span className={`absolute left-3 top-3 border-2 border-foreground ${property.tagColor} px-2 py-1 text-xs font-bold`}>
+                      <span
+                        className={`absolute left-3 top-3 border-2 border-foreground ${property.tagColor} px-2 py-1 text-xs font-bold`}
+                      >
                         {property.tag}
                       </span>
                     )}
                     <button
                       onClick={() => toggleFavorite(property.id)}
                       className={`absolute right-3 top-3 flex h-10 w-10 items-center justify-center border-2 border-foreground bg-background transition-colors ${
-                        favorites.includes(property.id) ? "text-destructive" : ""
+                        favorites.includes(property.id)
+                          ? "text-destructive"
+                          : ""
                       }`}
                     >
-                      <Heart className={`h-5 w-5 ${favorites.includes(property.id) ? "fill-current" : ""}`} />
+                      <Heart
+                        className={`h-5 w-5 ${
+                          favorites.includes(property.id) ? "fill-current" : ""
+                        }`}
+                      />
                     </button>
                   </div>
 
                   <div className="p-4">
                     <div className="mb-2 flex items-start justify-between gap-2">
-                      <h3 className="font-mono text-lg font-bold leading-tight">{property.title}</h3>
+                      <h3 className="font-mono text-lg font-bold leading-tight">
+                        {property.title}
+                      </h3>
                     </div>
-                    
+
                     <div className="mb-3 flex items-center gap-1 text-sm text-muted-foreground">
                       <MapPin className="h-4 w-4" />
                       <span>{property.location}</span>
@@ -344,11 +407,31 @@ export default function PropertiesPage() {
                       </span>
                     </div>
 
+                    {/* Whistleblower Info */}
+                    {property.whistleblower && (
+                      <div className="mb-3 bg-secondary/20 border-2 border-secondary px-3 py-2">
+                        <p className="text-xs font-bold text-secondary mb-1">
+                          Reported by Resident
+                        </p>
+                        <p className="text-sm font-bold">
+                          {property.whistleblower.name}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {property.whistleblower.rating}⭐ (
+                          {property.whistleblower.reviews} reviews)
+                        </p>
+                      </div>
+                    )}
+
                     <div className="border-t-2 border-dashed border-foreground/30 pt-4">
                       <div className="flex items-end justify-between">
                         <div>
-                          <p className="text-xs text-muted-foreground">Annual Rent</p>
-                          <p className="font-mono text-xl font-black">{formatPrice(property.price)}</p>
+                          <p className="text-xs text-muted-foreground">
+                            Annual Rent
+                          </p>
+                          <p className="font-mono text-xl font-black">
+                            {formatPrice(property.price)}
+                          </p>
                         </div>
                         <Link href={`/properties/${property.id}`}>
                           <Button className="border-2 border-foreground bg-primary px-4 py-2 text-sm font-bold shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(26,26,26,1)]">
@@ -357,7 +440,11 @@ export default function PropertiesPage() {
                         </Link>
                       </div>
                       <p className="mt-2 text-xs text-muted-foreground">
-                        From <span className="font-bold text-primary">{formatPrice(Math.round(property.price * 1.075 / 12))}/mo</span> with Sheltaflex
+                        From{" "}
+                        <span className="font-bold text-primary">
+                          {formatPrice(Math.round(property.price / 12))}/mo
+                        </span>{" "}
+                        with Sheltaflex
                       </p>
                     </div>
                   </div>
@@ -368,5 +455,5 @@ export default function PropertiesPage() {
         </div>
       </section>
     </main>
-  )
+  );
 }

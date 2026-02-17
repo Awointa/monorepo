@@ -1,18 +1,45 @@
-"use client"
+"use client";
 
-import React from "react"
-import { use } from "react"
-import { useState } from "react"
-import Link from "next/link"
-import { useRouter, useParams } from "next/navigation"
-import { 
-  Heart, MapPin, Bed, Bath, Square, ArrowLeft, Share2, 
-  Check, Wifi, Car, Shield, Dumbbell, TreePine, Wind,
-  Utensils, Tv, Waves, ChevronLeft, ChevronRight, X,
-  Calculator, Home, Sofa, CookingPot, ShowerHead, BedDouble,
-  MessageSquare, Star, Phone, Clock, CheckCircle, Eye
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
+import React from "react";
+import { use } from "react";
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter, useParams } from "next/navigation";
+import {
+  Heart,
+  MapPin,
+  Bed,
+  Bath,
+  Square,
+  ArrowLeft,
+  Share2,
+  Check,
+  Wifi,
+  Car,
+  Shield,
+  Dumbbell,
+  TreePine,
+  Wind,
+  Utensils,
+  Tv,
+  Waves,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  Calculator,
+  Home,
+  Sofa,
+  CookingPot,
+  ShowerHead,
+  BedDouble,
+  MessageSquare,
+  Star,
+  Phone,
+  Clock,
+  CheckCircle,
+  Eye,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const properties = [
   {
@@ -26,7 +53,8 @@ const properties = [
     sqm: 150,
     tag: "POPULAR",
     tagColor: "bg-primary",
-    description: "A stunning modern apartment in the heart of Lekki Phase 1. This fully serviced property offers the perfect blend of luxury and convenience, featuring contemporary finishes, spacious rooms, and premium amenities. Ideal for professionals and families looking for comfort in a prime location.",
+    description:
+      "A stunning modern apartment in the heart of Lekki Phase 1. This fully serviced property offers the perfect blend of luxury and convenience, featuring contemporary finishes, spacious rooms, and premium amenities. Ideal for professionals and families looking for comfort in a prime location.",
     features: [
       "24/7 Power Supply",
       "Fully Fitted Kitchen",
@@ -35,7 +63,7 @@ const properties = [
       "Gym Access",
       "Secure Parking",
       "CCTV Security",
-      "Fiber Internet Ready"
+      "Fiber Internet Ready",
     ],
     images: [
       { id: 1, label: "Living Room", icon: Sofa },
@@ -49,7 +77,7 @@ const properties = [
       name: "Prime Properties Ltd",
       verified: true,
       listings: 12,
-      responseTime: "Within 24 hours"
+      responseTime: "Within 24 hours",
     },
     agent: {
       name: "Adebayo Johnson",
@@ -59,8 +87,14 @@ const properties = [
       propertiesManaged: 15,
       responseTime: "Usually responds within 1 hour",
       verified: true,
-      inspectionFee: 10000
-    }
+      inspectionFee: 10000,
+    },
+    whistleblower: {
+      name: "Chiamaka Okonkwo",
+      rating: 4.8,
+      reviews: 24,
+      bio: "Lives in Block 5, Flat 2A - familiar with the building and can answer questions about neighborhood",
+    },
   },
   {
     id: 2,
@@ -73,14 +107,15 @@ const properties = [
     sqm: 120,
     tag: "NEW",
     tagColor: "bg-secondary",
-    description: "A beautifully designed 2 bedroom apartment in the prestigious Wuse 2 area. Features modern architecture, quality finishes, and is located close to shopping centers, restaurants, and major business districts.",
+    description:
+      "A beautifully designed 2 bedroom apartment in the prestigious Wuse 2 area. Features modern architecture, quality finishes, and is located close to shopping centers, restaurants, and major business districts.",
     features: [
       "24/7 Security",
       "Backup Generator",
       "Spacious Parking",
       "Water Treatment",
       "Modern Kitchen",
-      "Balcony"
+      "Balcony",
     ],
     images: [
       { id: 1, label: "Living Room", icon: Sofa },
@@ -93,18 +128,24 @@ const properties = [
       name: "Capital Homes Abuja",
       verified: true,
       listings: 8,
-      responseTime: "Within 12 hours"
+      responseTime: "Within 12 hours",
     },
     agent: {
       name: "Chioma Okafor",
       avatar: "CO",
       rating: 4.6,
       reviews: 89,
-      propertiesManaged: 22,
+      propertiesManaged: 10,
       responseTime: "Usually responds within 2 hours",
       verified: true,
-      inspectionFee: 8000
-    }
+      inspectionFee: 8000,
+    },
+    whistleblower: {
+      name: "Adanna Smith",
+      rating: 4.9,
+      reviews: 18,
+      bio: "Resident since 2022 - can give insights about building security, amenities, and neighborhood atmosphere",
+    },
   },
   {
     id: 3,
@@ -117,7 +158,8 @@ const properties = [
     sqm: 300,
     tag: "PREMIUM",
     tagColor: "bg-accent",
-    description: "An exquisite luxury duplex in the most sought-after neighborhood in Lagos. This property features premium finishes, smart home technology, a private garden, and direct access to the best schools and entertainment venues.",
+    description:
+      "An exquisite luxury duplex in the most sought-after neighborhood in Lagos. This property features premium finishes, smart home technology, a private garden, and direct access to the best schools and entertainment venues.",
     features: [
       "Smart Home System",
       "Private Garden",
@@ -126,7 +168,7 @@ const properties = [
       "Home Cinema",
       "Wine Cellar",
       "Double Garage",
-      "Elevator"
+      "Elevator",
     ],
     images: [
       { id: 1, label: "Grand Living Room", icon: Sofa },
@@ -142,7 +184,7 @@ const properties = [
       name: "Luxury Living Nigeria",
       verified: true,
       listings: 5,
-      responseTime: "Within 6 hours"
+      responseTime: "Within 6 hours",
     },
     agent: {
       name: "Emeka Nwosu",
@@ -152,8 +194,8 @@ const properties = [
       propertiesManaged: 8,
       responseTime: "Usually responds within 30 minutes",
       verified: true,
-      inspectionFee: 25000
-    }
+      inspectionFee: 25000,
+    },
   },
   {
     id: 4,
@@ -166,13 +208,14 @@ const properties = [
     sqm: 45,
     tag: null,
     tagColor: null,
-    description: "A compact and efficient studio apartment perfect for young professionals. Located in the vibrant Yaba tech hub with easy access to transportation, coworking spaces, and nightlife.",
+    description:
+      "A compact and efficient studio apartment perfect for young professionals. Located in the vibrant Yaba tech hub with easy access to transportation, coworking spaces, and nightlife.",
     features: [
       "Prepaid Meter",
       "Water Heater",
       "Built-in Wardrobe",
       "Tiled Floors",
-      "Security Gate"
+      "Security Gate",
     ],
     images: [
       { id: 1, label: "Studio Space", icon: Sofa },
@@ -184,7 +227,7 @@ const properties = [
       name: "Yaba Properties",
       verified: false,
       listings: 3,
-      responseTime: "Within 48 hours"
+      responseTime: "Within 48 hours",
     },
     agent: {
       name: "Funke Adeyemi",
@@ -194,8 +237,8 @@ const properties = [
       propertiesManaged: 12,
       responseTime: "Usually responds within 3 hours",
       verified: true,
-      inspectionFee: 5000
-    }
+      inspectionFee: 5000,
+    },
   },
   {
     id: 5,
@@ -208,14 +251,15 @@ const properties = [
     sqm: 180,
     tag: "HOT",
     tagColor: "bg-destructive",
-    description: "A premium executive apartment in the commercial heart of Lagos. Perfect for business executives with proximity to major corporate offices, embassies, and high-end restaurants.",
+    description:
+      "A premium executive apartment in the commercial heart of Lagos. Perfect for business executives with proximity to major corporate offices, embassies, and high-end restaurants.",
     features: [
       "Concierge Service",
       "Rooftop Lounge",
       "Business Center",
       "Underground Parking",
       "Gym & Spa",
-      "24/7 Power"
+      "24/7 Power",
     ],
     images: [
       { id: 1, label: "Living Room", icon: Sofa },
@@ -229,7 +273,7 @@ const properties = [
       name: "VI Executive Homes",
       verified: true,
       listings: 15,
-      responseTime: "Within 6 hours"
+      responseTime: "Within 6 hours",
     },
     agent: {
       name: "Tunde Bakare",
@@ -239,8 +283,8 @@ const properties = [
       propertiesManaged: 28,
       responseTime: "Usually responds within 1 hour",
       verified: true,
-      inspectionFee: 15000
-    }
+      inspectionFee: 15000,
+    },
   },
   {
     id: 6,
@@ -253,14 +297,15 @@ const properties = [
     sqm: 220,
     tag: null,
     tagColor: null,
-    description: "A spacious family bungalow in the serene Gwarimpa estate. Features a large compound, boys quarters, and is located in a child-friendly neighborhood with good schools nearby.",
+    description:
+      "A spacious family bungalow in the serene Gwarimpa estate. Features a large compound, boys quarters, and is located in a child-friendly neighborhood with good schools nearby.",
     features: [
       "Large Compound",
       "Boys Quarters",
       "Garage",
       "Garden Space",
       "Borehole",
-      "Prepaid Meter"
+      "Prepaid Meter",
     ],
     images: [
       { id: 1, label: "Living Room", icon: Sofa },
@@ -274,7 +319,7 @@ const properties = [
       name: "Gwarimpa Realtors",
       verified: true,
       listings: 20,
-      responseTime: "Within 24 hours"
+      responseTime: "Within 24 hours",
     },
     agent: {
       name: "Amina Ibrahim",
@@ -284,8 +329,8 @@ const properties = [
       propertiesManaged: 35,
       responseTime: "Usually responds within 2 hours",
       verified: true,
-      inspectionFee: 10000
-    }
+      inspectionFee: 10000,
+    },
   },
   {
     id: 7,
@@ -298,13 +343,14 @@ const properties = [
     sqm: 100,
     tag: "NEW",
     tagColor: "bg-secondary",
-    description: "A newly renovated apartment in the quiet Ikeja GRA neighborhood. Close to the domestic airport and major shopping malls, perfect for frequent travelers.",
+    description:
+      "A newly renovated apartment in the quiet Ikeja GRA neighborhood. Close to the domestic airport and major shopping malls, perfect for frequent travelers.",
     features: [
       "Airport Proximity",
       "Shopping Access",
       "Quiet Neighborhood",
       "Modern Finishes",
-      "Parking Space"
+      "Parking Space",
     ],
     images: [
       { id: 1, label: "Living Room", icon: Sofa },
@@ -317,7 +363,7 @@ const properties = [
       name: "GRA Properties",
       verified: true,
       listings: 7,
-      responseTime: "Within 12 hours"
+      responseTime: "Within 12 hours",
     },
     agent: {
       name: "Kola Adesanya",
@@ -327,8 +373,8 @@ const properties = [
       propertiesManaged: 18,
       responseTime: "Usually responds within 4 hours",
       verified: true,
-      inspectionFee: 7000
-    }
+      inspectionFee: 7000,
+    },
   },
   {
     id: 8,
@@ -341,7 +387,8 @@ const properties = [
     sqm: 400,
     tag: "LUXURY",
     tagColor: "bg-accent",
-    description: "The ultimate in luxury living. This penthouse offers panoramic views of the Lagos lagoon, private elevator access, and world-class amenities. For the discerning few who demand nothing but the best.",
+    description:
+      "The ultimate in luxury living. This penthouse offers panoramic views of the Lagos lagoon, private elevator access, and world-class amenities. For the discerning few who demand nothing but the best.",
     features: [
       "Private Elevator",
       "Panoramic Views",
@@ -350,7 +397,7 @@ const properties = [
       "Wine Room",
       "Private Cinema",
       "Helipad Access",
-      "Yacht Club Membership"
+      "Yacht Club Membership",
     ],
     images: [
       { id: 1, label: "Grand Salon", icon: Sofa },
@@ -366,7 +413,7 @@ const properties = [
       name: "Elite Residences",
       verified: true,
       listings: 3,
-      responseTime: "Within 2 hours"
+      responseTime: "Within 2 hours",
     },
     agent: {
       name: "Ngozi Eze",
@@ -376,10 +423,10 @@ const properties = [
       propertiesManaged: 6,
       responseTime: "Usually responds within 15 minutes",
       verified: true,
-      inspectionFee: 50000
-    }
+      inspectionFee: 50000,
+    },
   },
-]
+];
 
 const featureIcons: { [key: string]: React.ElementType } = {
   "24/7 Power Supply": Wind,
@@ -397,7 +444,7 @@ const featureIcons: { [key: string]: React.ElementType } = {
   "Underground Parking": Car,
   "Parking Space": Car,
   "Double Garage": Car,
-  "Garage": Car,
+  Garage: Car,
   "CCTV Security": Shield,
   "24/7 Security": Shield,
   "Security Gate": Shield,
@@ -406,31 +453,35 @@ const featureIcons: { [key: string]: React.ElementType } = {
   "Smart Home": Wifi,
   "Private Garden": TreePine,
   "Garden Space": TreePine,
-  "Backyard": TreePine,
+  Backyard: TreePine,
   "Home Cinema": Tv,
   "Private Cinema": Tv,
-  "Balcony": TreePine,
+  Balcony: TreePine,
   "Rooftop Lounge": TreePine,
-}
+};
 
 export default function PropertyDetailPage() {
-  const params = useParams()
-  const router = useRouter()
-  const [isFavorite, setIsFavorite] = useState(false)
-  const [activeImageIndex, setActiveImageIndex] = useState(0)
-  const [showLightbox, setShowLightbox] = useState(false)
-  const [paymentMonths, setPaymentMonths] = useState(12)
+  const params = useParams();
+  const router = useRouter();
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [showLightbox, setShowLightbox] = useState(false);
+  const [paymentMonths, setPaymentMonths] = useState(12);
 
-  const id = params.id as string
-  const property = properties.find((p) => p.id === parseInt(id))
+  const id = params.id as string;
+  const property = properties.find((p) => p.id === parseInt(id));
 
   if (!property) {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center">
         <div className="border-3 border-foreground bg-card p-12 text-center shadow-[6px_6px_0px_0px_rgba(26,26,26,1)]">
           <Home className="mx-auto h-16 w-16 text-muted-foreground mb-4" />
-          <h1 className="font-mono text-2xl font-black mb-2">Property Not Found</h1>
-          <p className="text-muted-foreground mb-6">The property you're looking for doesn't exist.</p>
+          <h1 className="font-mono text-2xl font-black mb-2">
+            Property Not Found
+          </h1>
+          <p className="text-muted-foreground mb-6">
+            The property you're looking for doesn't exist.
+          </p>
           <Link href="/properties">
             <Button className="border-3 border-foreground bg-primary px-6 py-3 font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
               Browse Properties
@@ -438,7 +489,7 @@ export default function PropertyDetailPage() {
           </Link>
         </div>
       </main>
-    )
+    );
   }
 
   const formatPrice = (price: number) => {
@@ -446,28 +497,32 @@ export default function PropertyDetailPage() {
       style: "currency",
       currency: "NGN",
       minimumFractionDigits: 0,
-    }).format(price)
-  }
+    }).format(price);
+  };
 
-  const minDeposit = property.price * 0.2 // 20% minimum deposit
-  const amountToFinance = property.price - minDeposit
-  const inspectionFee = amountToFinance * 0.075
-  const monthlyPayment = Math.round((amountToFinance + inspectionFee) / paymentMonths)
+  const minDeposit = property.price * 0.2; // 20% minimum deposit
+  const amountToFinance = property.price - minDeposit;
+  const inspectionFee = amountToFinance * 0.075;
+  const monthlyPayment = Math.round(
+    (amountToFinance + inspectionFee) / paymentMonths
+  );
 
   const nextImage = () => {
-    setActiveImageIndex((prev) => (prev + 1) % property.images.length)
-  }
+    setActiveImageIndex((prev) => (prev + 1) % property.images.length);
+  };
 
   const prevImage = () => {
-    setActiveImageIndex((prev) => (prev - 1 + property.images.length) % property.images.length)
-  }
+    setActiveImageIndex(
+      (prev) => (prev - 1 + property.images.length) % property.images.length
+    );
+  };
 
   return (
     <main className="min-h-screen bg-background">
       {/* Back Navigation */}
       <div className="border-b-3 border-foreground bg-muted">
         <div className="container mx-auto px-4 py-4">
-          <button 
+          <button
             onClick={() => router.back()}
             className="flex items-center gap-2 font-mono font-bold text-foreground hover:text-primary transition-colors"
           >
@@ -483,34 +538,45 @@ export default function PropertyDetailPage() {
           <div className="grid gap-4 lg:grid-cols-3">
             {/* Main Image */}
             <div className="lg:col-span-2">
-              <div 
+              <div
                 className="relative aspect-[16/10] border-3 border-foreground bg-muted shadow-[6px_6px_0px_0px_rgba(26,26,26,1)] cursor-pointer overflow-hidden group"
                 onClick={() => setShowLightbox(true)}
               >
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground">
                   {(() => {
-                    const IconComponent = property.images[activeImageIndex].icon
-                    return <IconComponent className="h-24 w-24 mb-4" />
+                    const IconComponent =
+                      property.images[activeImageIndex].icon;
+                    return <IconComponent className="h-24 w-24 mb-4" />;
                   })()}
-                  <span className="font-mono text-xl font-bold">{property.images[activeImageIndex].label}</span>
+                  <span className="font-mono text-xl font-bold">
+                    {property.images[activeImageIndex].label}
+                  </span>
                   <span className="text-sm mt-2">Click to expand</span>
                 </div>
-                
+
                 {property.tag && (
-                  <span className={`absolute left-4 top-4 border-3 border-foreground ${property.tagColor} px-3 py-1 text-sm font-bold`}>
+                  <span
+                    className={`absolute left-4 top-4 border-3 border-foreground ${property.tagColor} px-3 py-1 text-sm font-bold`}
+                  >
                     {property.tag}
                   </span>
                 )}
 
                 {/* Navigation Arrows */}
                 <button
-                  onClick={(e) => { e.stopPropagation(); prevImage(); }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    prevImage();
+                  }}
                   className="absolute left-4 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center border-3 border-foreground bg-background shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] opacity-0 group-hover:opacity-100 transition-opacity"
                 >
                   <ChevronLeft className="h-6 w-6" />
                 </button>
                 <button
-                  onClick={(e) => { e.stopPropagation(); nextImage(); }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    nextImage();
+                  }}
                   className="absolute right-4 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center border-3 border-foreground bg-background shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] opacity-0 group-hover:opacity-100 transition-opacity"
                 >
                   <ChevronRight className="h-6 w-6" />
@@ -526,23 +592,25 @@ export default function PropertyDetailPage() {
             {/* Thumbnail Grid */}
             <div className="grid grid-cols-3 gap-2 md:gap-3 lg:grid-cols-2">
               {property.images.slice(0, 6).map((image, index) => {
-                const IconComponent = image.icon
+                const IconComponent = image.icon;
                 return (
                   <button
                     key={image.id}
                     onClick={() => setActiveImageIndex(index)}
                     className={`relative aspect-square border-3 border-foreground bg-muted transition-all ${
-                      activeImageIndex === index 
-                        ? "shadow-[4px_4px_0px_0px_rgba(255,107,53,1)] ring-2 ring-primary" 
+                      activeImageIndex === index
+                        ? "shadow-[4px_4px_0px_0px_rgba(255,107,53,1)] ring-2 ring-primary"
                         : "shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] hover:translate-x-[1px] hover:translate-y-[1px]"
                     }`}
                   >
                     <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground p-2">
                       <IconComponent className="h-8 w-8 mb-1" />
-                      <span className="text-xs font-bold text-center leading-tight">{image.label}</span>
+                      <span className="text-xs font-bold text-center leading-tight">
+                        {image.label}
+                      </span>
                     </div>
                   </button>
-                )
+                );
               })}
               {property.images.length > 6 && (
                 <button
@@ -550,7 +618,9 @@ export default function PropertyDetailPage() {
                   className="relative aspect-square border-3 border-foreground bg-foreground text-background shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all"
                 >
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className="font-mono text-2xl font-black">+{property.images.length - 6}</span>
+                    <span className="font-mono text-2xl font-black">
+                      +{property.images.length - 6}
+                    </span>
                     <span className="text-xs font-bold">More</span>
                   </div>
                 </button>
@@ -569,7 +639,9 @@ export default function PropertyDetailPage() {
               {/* Title & Location */}
               <div>
                 <div className="flex flex-col gap-3 mb-4 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
-                  <h1 className="font-mono text-2xl font-black md:text-3xl lg:text-4xl">{property.title}</h1>
+                  <h1 className="font-mono text-2xl font-black md:text-3xl lg:text-4xl">
+                    {property.title}
+                  </h1>
                   <div className="flex gap-2">
                     <button
                       onClick={() => setIsFavorite(!isFavorite)}
@@ -577,81 +649,108 @@ export default function PropertyDetailPage() {
                         isFavorite ? "text-destructive" : ""
                       }`}
                     >
-                      <Heart className={`h-4 w-4 sm:h-5 sm:w-5 ${isFavorite ? "fill-current" : ""}`} />
+                      <Heart
+                        className={`h-4 w-4 sm:h-5 sm:w-5 ${
+                          isFavorite ? "fill-current" : ""
+                        }`}
+                      />
                     </button>
                     <button className="flex h-10 w-10 items-center justify-center border-3 border-foreground bg-background shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] sm:h-12 sm:w-12">
                       <Share2 className="h-4 w-4 sm:h-5 sm:w-5" />
                     </button>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-2 text-muted-foreground mb-4">
                   <MapPin className="h-4 w-4 shrink-0 sm:h-5 sm:w-5" />
-                  <span className="text-sm sm:text-base lg:text-lg">{property.address}</span>
+                  <span className="text-sm sm:text-base lg:text-lg">
+                    {property.address}
+                  </span>
                 </div>
 
                 <div className="flex flex-wrap gap-2 sm:gap-4">
                   <div className="flex items-center gap-1 border-2 border-foreground bg-muted px-2 py-1 sm:gap-2 sm:px-4 sm:py-2">
                     <Bed className="h-4 w-4 sm:h-5 sm:w-5" />
-                    <span className="text-sm font-bold sm:text-base">{property.beds} Beds</span>
+                    <span className="text-sm font-bold sm:text-base">
+                      {property.beds} Beds
+                    </span>
                   </div>
                   <div className="flex items-center gap-1 border-2 border-foreground bg-muted px-2 py-1 sm:gap-2 sm:px-4 sm:py-2">
                     <Bath className="h-4 w-4 sm:h-5 sm:w-5" />
-                    <span className="text-sm font-bold sm:text-base">{property.baths} Baths</span>
+                    <span className="text-sm font-bold sm:text-base">
+                      {property.baths} Baths
+                    </span>
                   </div>
                   <div className="flex items-center gap-1 border-2 border-foreground bg-muted px-2 py-1 sm:gap-2 sm:px-4 sm:py-2">
                     <Square className="h-4 w-4 sm:h-5 sm:w-5" />
-                    <span className="text-sm font-bold sm:text-base">{property.sqm} m²</span>
+                    <span className="text-sm font-bold sm:text-base">
+                      {property.sqm} m²
+                    </span>
                   </div>
                 </div>
               </div>
 
               {/* Description */}
               <div className="border-3 border-foreground bg-card p-4 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] sm:p-6">
-                <h2 className="font-mono text-lg font-bold mb-3 sm:text-xl sm:mb-4">About This Property</h2>
-                <p className="text-sm text-muted-foreground leading-relaxed sm:text-base">{property.description}</p>
+                <h2 className="font-mono text-lg font-bold mb-3 sm:text-xl sm:mb-4">
+                  About This Property
+                </h2>
+                <p className="text-sm text-muted-foreground leading-relaxed sm:text-base">
+                  {property.description}
+                </p>
               </div>
 
               {/* Features */}
               <div className="border-3 border-foreground bg-card p-4 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] sm:p-6">
-                <h2 className="font-mono text-lg font-bold mb-3 sm:text-xl sm:mb-4">Features & Amenities</h2>
+                <h2 className="font-mono text-lg font-bold mb-3 sm:text-xl sm:mb-4">
+                  Features & Amenities
+                </h2>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {property.features.map((feature, index) => {
-                    const IconComponent = featureIcons[feature] || Check
+                    const IconComponent = featureIcons[feature] || Check;
                     return (
-                      <div key={index} className="flex items-center gap-3 border-2 border-foreground bg-muted p-3">
+                      <div
+                        key={index}
+                        className="flex items-center gap-3 border-2 border-foreground bg-muted p-3"
+                      >
                         <div className="flex h-8 w-8 items-center justify-center bg-secondary border-2 border-foreground">
                           <IconComponent className="h-4 w-4" />
                         </div>
                         <span className="font-medium">{feature}</span>
                       </div>
-                    )
+                    );
                   })}
                 </div>
               </div>
 
               {/* Room Gallery */}
               <div className="border-3 border-foreground bg-card p-6 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
-                <h2 className="font-mono text-xl font-bold mb-4">Property Gallery</h2>
-                <p className="text-muted-foreground mb-4">Click on any room to view full size</p>
+                <h2 className="font-mono text-xl font-bold mb-4">
+                  Property Gallery
+                </h2>
+                <p className="text-muted-foreground mb-4">
+                  Click on any room to view full size
+                </p>
                 <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
                   {property.images.map((image, index) => {
-                    const IconComponent = image.icon
+                    const IconComponent = image.icon;
                     return (
                       <button
                         key={image.id}
                         onClick={() => {
-                          setActiveImageIndex(index)
-                          setShowLightbox(true)
+                          setActiveImageIndex(index);
+                          setShowLightbox(true);
                         }}
                         className="group relative aspect-[4/3] border-3 border-foreground bg-muted shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
                       >
                         <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground group-hover:text-foreground transition-colors">
                           <IconComponent className="h-12 w-12 mb-2" />
-                          <span className="font-mono font-bold">{image.label}</span>
+                          <span className="font-mono font-bold">
+                            {image.label}
+                          </span>
                         </div>
                       </button>
-                    )
+                    );
                   })}
                 </div>
               </div>
@@ -663,18 +762,26 @@ export default function PropertyDetailPage() {
                 {/* Pricing Card */}
                 <div className="border-3 border-foreground bg-card p-4 shadow-[6px_6px_0px_0px_rgba(26,26,26,1)] sm:p-6">
                   <div className="mb-4">
-                    <p className="text-xs text-muted-foreground sm:text-sm">Annual Rent</p>
-                    <p className="font-mono text-2xl font-black sm:text-3xl">{formatPrice(property.price)}</p>
+                    <p className="text-xs text-muted-foreground sm:text-sm">
+                      Annual Rent
+                    </p>
+                    <p className="font-mono text-2xl font-black sm:text-3xl">
+                      {formatPrice(property.price)}
+                    </p>
                   </div>
 
                   <div className="border-t-3 border-dashed border-foreground/30 pt-4 mb-4">
                     <div className="flex items-center gap-2 mb-3">
                       <Calculator className="h-5 w-5 text-primary" />
-                      <span className="font-mono font-bold">Pay with Sheltaflex</span>
+                      <span className="font-mono font-bold">
+                        Pay with Sheltaflex
+                      </span>
                     </div>
-                    
+
                     <div className="mb-4">
-                      <label className="block text-sm font-medium mb-2">Payment Duration</label>
+                      <label className="block text-sm font-medium mb-2">
+                        Payment Duration
+                      </label>
                       <div className="flex gap-2">
                         {[3, 6, 12].map((months) => (
                           <button
@@ -693,10 +800,18 @@ export default function PropertyDetailPage() {
                     </div>
 
                     <div className="border-3 border-primary bg-primary/10 p-4">
-                      <p className="text-sm text-muted-foreground">Monthly Payment</p>
-                      <p className="font-mono text-2xl font-black text-primary">{formatPrice(monthlyPayment)}</p>
-                      <p className="text-xs text-muted-foreground mt-1">for {paymentMonths} months (after 20% deposit)</p>
-                      <p className="text-xs text-muted-foreground mt-1">*excludes inspection fee & other charges</p>
+                      <p className="text-sm text-muted-foreground">
+                        Monthly Payment
+                      </p>
+                      <p className="font-mono text-2xl font-black text-primary">
+                        {formatPrice(monthlyPayment)}
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        for {paymentMonths} months (after 20% deposit)
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        *excludes inspection fee & other charges
+                      </p>
                     </div>
                   </div>
 
@@ -705,7 +820,7 @@ export default function PropertyDetailPage() {
                       Apply Now
                     </Button>
                   </Link>
-                  
+
                   <p className="text-center text-xs text-muted-foreground mt-3">
                     Get instant approval in minutes
                   </p>
@@ -722,7 +837,7 @@ export default function PropertyDetailPage() {
                         </span>
                       )}
                     </div>
-                    
+
                     <div className="flex items-center gap-4 mb-4">
                       <div className="relative">
                         <div className="flex h-16 w-16 items-center justify-center border-3 border-foreground bg-accent font-mono text-xl font-bold">
@@ -731,11 +846,17 @@ export default function PropertyDetailPage() {
                         <div className="absolute -bottom-1 -right-1 h-4 w-4 border-2 border-foreground bg-secondary" />
                       </div>
                       <div>
-                        <p className="text-lg font-bold">{property.agent.name}</p>
+                        <p className="text-lg font-bold">
+                          {property.agent.name}
+                        </p>
                         <div className="flex items-center gap-1 mt-1">
                           <Star className="h-4 w-4 fill-accent text-accent" />
-                          <span className="font-bold">{property.agent.rating}</span>
-                          <span className="text-xs text-muted-foreground">({property.agent.reviews} reviews)</span>
+                          <span className="font-bold">
+                            {property.agent.rating}
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            ({property.agent.reviews} reviews)
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -743,24 +864,35 @@ export default function PropertyDetailPage() {
                     <div className="space-y-2 text-sm mb-4 border-t-2 border-foreground pt-4">
                       <p className="flex items-center gap-2">
                         <Home className="h-4 w-4 text-muted-foreground" />
-                        <span className="text-muted-foreground">Properties:</span>
-                        <span className="font-bold ml-auto">{property.agent.propertiesManaged}</span>
+                        <span className="text-muted-foreground">
+                          Properties:
+                        </span>
+                        <span className="font-bold ml-auto">
+                          {property.agent.propertiesManaged}
+                        </span>
                       </p>
                       <p className="flex items-center gap-2">
                         <Clock className="h-4 w-4 text-muted-foreground" />
                         <span className="text-muted-foreground">Response:</span>
-                        <span className="font-bold ml-auto text-xs">{property.agent.responseTime}</span>
+                        <span className="font-bold ml-auto text-xs">
+                          {property.agent.responseTime}
+                        </span>
                       </p>
                       <p className="flex items-center gap-2">
                         <Eye className="h-4 w-4 text-muted-foreground" />
-                        <span className="text-muted-foreground">Inspection Fee:</span>
-                        <span className="font-bold ml-auto text-primary">{formatPrice(property.agent.inspectionFee)}</span>
+                        <span className="text-muted-foreground">
+                          Inspection Fee:
+                        </span>
+                        <span className="font-bold ml-auto text-primary">
+                          {formatPrice(property.agent.inspectionFee)}
+                        </span>
                       </p>
                     </div>
 
                     <div className="border-2 border-dashed border-primary/50 bg-primary/5 p-3 mb-4">
                       <p className="text-xs text-muted-foreground text-center">
-                        Inspection fee is paid directly to the agent when scheduling a property viewing
+                        Inspection fee is paid directly to the agent when
+                        scheduling a property viewing
                       </p>
                     </div>
 
@@ -771,7 +903,7 @@ export default function PropertyDetailPage() {
                           Message Agent
                         </Button>
                       </Link>
-                      <Button 
+                      <Button
                         variant="outline"
                         className="w-full border-3 border-foreground bg-transparent py-5 font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
                       >
@@ -783,6 +915,57 @@ export default function PropertyDetailPage() {
                     <p className="text-center text-xs text-muted-foreground mt-3">
                       Your contact info stays private until you choose to share
                     </p>
+                  </div>
+                )}
+
+                {/* Whistleblower Info */}
+                {property.whistleblower && (
+                  <div className="border-3 border-secondary bg-card p-6 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-mono font-bold">
+                        Reported by Resident
+                      </h3>
+                      <span className="inline-flex items-center gap-1 border-2 border-secondary bg-secondary/20 px-2 py-1 text-xs font-bold text-secondary">
+                        <CheckCircle className="h-3 w-3" /> Verified
+                      </span>
+                    </div>
+
+                    <div className="mb-4">
+                      <p className="text-lg font-bold">
+                        {property.whistleblower.name}
+                      </p>
+                      <div className="flex items-center gap-1 mt-1">
+                        <Star className="h-4 w-4 fill-secondary text-secondary" />
+                        <span className="font-bold">
+                          {property.whistleblower.rating}
+                        </span>
+                        <span className="text-xs text-muted-foreground">
+                          ({property.whistleblower.reviews} reviews)
+                        </span>
+                      </div>
+                    </div>
+
+                    <p className="text-sm text-muted-foreground mb-4">
+                      {property.whistleblower.bio}
+                    </p>
+
+                    <div className="bg-secondary/10 border-2 border-secondary p-3 rounded-sm">
+                      <p className="text-xs font-bold text-secondary mb-1">
+                        Why this matters:
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        Get authentic information from someone who actually
+                        lives in the building. Ask questions and get honest
+                        answers about neighborhood life.
+                      </p>
+                    </div>
+
+                    <Link href="/messages">
+                      <Button className="w-full mt-4 border-3 border-secondary bg-secondary py-5 font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]">
+                        <MessageSquare className="mr-2 h-5 w-5" />
+                        Message {property.whistleblower.name}
+                      </Button>
+                    </Link>
                   </div>
                 )}
 
@@ -804,16 +987,24 @@ export default function PropertyDetailPage() {
                   </div>
                   <div className="space-y-2 text-sm">
                     <p className="flex justify-between">
-                      <span className="text-muted-foreground">Active Listings</span>
-                      <span className="font-bold">{property.landlord.listings}</span>
+                      <span className="text-muted-foreground">
+                        Active Listings
+                      </span>
+                      <span className="font-bold">
+                        {property.landlord.listings}
+                      </span>
                     </p>
                     <p className="flex justify-between">
-                      <span className="text-muted-foreground">Response Time</span>
-                      <span className="font-bold">{property.landlord.responseTime}</span>
+                      <span className="text-muted-foreground">
+                        Response Time
+                      </span>
+                      <span className="font-bold">
+                        {property.landlord.responseTime}
+                      </span>
                     </p>
                   </div>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     className="w-full mt-4 border-3 border-foreground bg-transparent py-5 font-bold shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
                   >
                     Contact Landlord
@@ -846,28 +1037,30 @@ export default function PropertyDetailPage() {
             <div className="relative aspect-[16/10] border-3 border-background bg-muted">
               <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground">
                 {(() => {
-                  const IconComponent = property.images[activeImageIndex].icon
-                  return <IconComponent className="h-32 w-32 mb-4" />
+                  const IconComponent = property.images[activeImageIndex].icon;
+                  return <IconComponent className="h-32 w-32 mb-4" />;
                 })()}
-                <span className="font-mono text-2xl font-bold">{property.images[activeImageIndex].label}</span>
+                <span className="font-mono text-2xl font-bold">
+                  {property.images[activeImageIndex].label}
+                </span>
               </div>
             </div>
             <div className="mt-4 flex justify-center gap-2">
               {property.images.map((image, index) => {
-                const IconComponent = image.icon
+                const IconComponent = image.icon;
                 return (
                   <button
                     key={image.id}
                     onClick={() => setActiveImageIndex(index)}
                     className={`h-16 w-16 border-2 flex items-center justify-center ${
-                      activeImageIndex === index 
-                        ? "border-primary bg-primary/20" 
+                      activeImageIndex === index
+                        ? "border-primary bg-primary/20"
                         : "border-background/50 bg-background/10"
                     }`}
                   >
                     <IconComponent className="h-6 w-6 text-background" />
                   </button>
-                )
+                );
               })}
             </div>
           </div>
@@ -881,5 +1074,5 @@ export default function PropertyDetailPage() {
         </div>
       )}
     </main>
-  )
+  );
 }
