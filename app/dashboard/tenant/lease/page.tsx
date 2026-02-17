@@ -1,6 +1,7 @@
-"use client"
+"use client";
 
-import Link from "next/link"
+import { useState } from "react";
+import Link from "next/link";
 import {
   Home,
   Building2,
@@ -16,65 +17,55 @@ import {
   Phone,
   Mail,
   Clock,
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { DashboardHeader } from "@/components/dashboard-header"
-
-const leaseDetails = {
-  property: {
-    title: "Modern 3 Bedroom Flat",
-    address: "15 Admiralty Way, Lekki Phase 1, Lagos",
-    type: "Apartment",
-    beds: 3,
-    baths: 2,
-    sqm: 120,
-  },
-  lease: {
-    startDate: "Jan 1, 2025",
-    endDate: "Dec 31, 2025",
-    duration: "12 months",
-    annualRent: 2580000,
-    monthlyPayment: 215000,
-    deposit: 516000,
-    status: "Active",
-  },
-  landlord: {
-    name: "Chief Emeka Okonkwo",
-    company: "Okonkwo Properties Ltd",
-    phone: "+234 803 456 7890",
-    email: "chief@okonkwoproperties.com",
-  },
-  agent: {
-    name: "Adebayo Johnson",
-    phone: "+234 802 345 6789",
-    email: "adebayo.j@sheltaflex.com",
-    rating: 4.8,
-  },
-  documents: [
-    { name: "Lease Agreement", date: "Jan 1, 2025", type: "PDF" },
-    { name: "Property Inspection Report", date: "Dec 28, 2024", type: "PDF" },
-    { name: "Payment Schedule", date: "Jan 1, 2025", type: "PDF" },
-    { name: "House Rules", date: "Jan 1, 2025", type: "PDF" },
-  ],
-  paymentProgress: {
-    totalPaid: 1290000,
-    totalOwed: 2580000,
-    paymentsCompleted: 6,
-    totalPayments: 12,
-  },
-}
+  X,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { DashboardHeader } from "@/components/dashboard-header";
+import { leaseDetails } from "@/lib/mockData/leaseData";
+import {
+  leaseAgreement,
+  propertyInspectionReport,
+  paymentSchedule,
+  houseRules,
+} from "@/lib/mockData/documents";
 
 export default function TenantLeasePage() {
+  const [selectedDocument, setSelectedDocument] = useState<
+    | typeof leaseAgreement
+    | typeof propertyInspectionReport
+    | typeof paymentSchedule
+    | typeof houseRules
+    | null
+  >(null);
+
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("en-NG", {
       style: "currency",
       currency: "NGN",
       minimumFractionDigits: 0,
-    }).format(amount)
-  }
+    }).format(amount);
+  };
 
-  const progressPercentage = (leaseDetails.paymentProgress.totalPaid / leaseDetails.paymentProgress.totalOwed) * 100
+  const progressPercentage =
+    (leaseDetails.paymentProgress.totalPaid /
+      leaseDetails.paymentProgress.totalOwed) *
+    100;
+
+  const getDocumentObject = (docName: string) => {
+    switch (docName) {
+      case "Lease Agreement":
+        return leaseAgreement;
+      case "Property Inspection Report":
+        return propertyInspectionReport;
+      case "Payment Schedule":
+        return paymentSchedule;
+      case "House Rules":
+        return houseRules;
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -146,7 +137,9 @@ export default function TenantLeasePage() {
           <div className="mb-8 flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold text-foreground">My Lease</h1>
-              <p className="mt-1 text-muted-foreground">View your lease details and documents</p>
+              <p className="mt-1 text-muted-foreground">
+                View your lease details and documents
+              </p>
             </div>
             <div className="flex items-center gap-2 border-3 border-foreground bg-secondary px-4 py-2 font-bold">
               <CheckCircle className="h-5 w-5" />
@@ -164,7 +157,9 @@ export default function TenantLeasePage() {
                     <Building2 className="h-20 w-20 text-muted-foreground" />
                   </div>
                 </div>
-                <h4 className="text-xl font-bold">{leaseDetails.property.title}</h4>
+                <h4 className="text-xl font-bold">
+                  {leaseDetails.property.title}
+                </h4>
                 <p className="mt-1 flex items-center gap-1 text-muted-foreground">
                   <MapPin className="h-4 w-4" />
                   {leaseDetails.property.address}
@@ -191,36 +186,47 @@ export default function TenantLeasePage() {
                       <Calendar className="h-4 w-4" />
                       <span className="text-sm">Start Date</span>
                     </div>
-                    <p className="mt-1 font-bold">{leaseDetails.lease.startDate}</p>
+                    <p className="mt-1 font-bold">
+                      {leaseDetails.lease.startDate}
+                    </p>
                   </div>
                   <div className="border-3 border-foreground bg-muted/50 p-4">
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <Calendar className="h-4 w-4" />
                       <span className="text-sm">End Date</span>
                     </div>
-                    <p className="mt-1 font-bold">{leaseDetails.lease.endDate}</p>
+                    <p className="mt-1 font-bold">
+                      {leaseDetails.lease.endDate}
+                    </p>
                   </div>
                   <div className="border-3 border-foreground bg-muted/50 p-4">
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <Clock className="h-4 w-4" />
                       <span className="text-sm">Duration</span>
                     </div>
-                    <p className="mt-1 font-bold">{leaseDetails.lease.duration}</p>
+                    <p className="mt-1 font-bold">
+                      {leaseDetails.lease.duration}
+                    </p>
                   </div>
                   <div className="border-3 border-foreground bg-primary/10 p-4">
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <CreditCard className="h-4 w-4" />
                       <span className="text-sm">Monthly Payment</span>
                     </div>
-                    <p className="mt-1 font-bold text-primary">{formatCurrency(leaseDetails.lease.monthlyPayment)}</p>
+                    <p className="mt-1 font-bold text-primary">
+                      {formatCurrency(leaseDetails.lease.monthlyPayment)}
+                    </p>
                   </div>
                 </div>
 
                 <div className="mt-6">
                   <div className="mb-2 flex justify-between text-sm">
-                    <span className="text-muted-foreground">Payment Progress</span>
+                    <span className="text-muted-foreground">
+                      Payment Progress
+                    </span>
                     <span className="font-bold">
-                      {leaseDetails.paymentProgress.paymentsCompleted}/{leaseDetails.paymentProgress.totalPayments} payments
+                      {leaseDetails.paymentProgress.paymentsCompleted}/
+                      {leaseDetails.paymentProgress.totalPayments} payments
                     </span>
                   </div>
                   <div className="h-6 border-3 border-foreground bg-muted">
@@ -230,8 +236,14 @@ export default function TenantLeasePage() {
                     />
                   </div>
                   <div className="mt-2 flex justify-between text-sm text-muted-foreground">
-                    <span>{formatCurrency(leaseDetails.paymentProgress.totalPaid)} paid</span>
-                    <span>{formatCurrency(leaseDetails.paymentProgress.totalOwed)} total</span>
+                    <span>
+                      {formatCurrency(leaseDetails.paymentProgress.totalPaid)}{" "}
+                      paid
+                    </span>
+                    <span>
+                      {formatCurrency(leaseDetails.paymentProgress.totalOwed)}{" "}
+                      total
+                    </span>
                   </div>
                 </div>
               </Card>
@@ -240,32 +252,132 @@ export default function TenantLeasePage() {
               <Card className="border-3 border-foreground p-6 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
                 <h3 className="mb-4 text-lg font-bold">Lease Documents</h3>
                 <div className="space-y-3">
-                  {leaseDetails.documents.map((doc, index) => (
+                  {leaseDetails.documents.map((doc) => (
                     <div
-                      key={index}
-                      className="flex items-center justify-between border-3 border-foreground bg-card p-4 transition-all hover:bg-muted"
+                      key={doc.id}
+                      className="flex items-center justify-between border-3 border-foreground bg-card p-4 transition-all hover:bg-muted cursor-pointer"
+                      onClick={() =>
+                        setSelectedDocument(getDocumentObject(doc.name))
+                      }
                     >
-                      <div className="flex items-center gap-4">
-                        <div className="flex h-10 w-10 items-center justify-center border-2 border-foreground bg-muted">
+                      <div className="flex items-center gap-4 flex-1">
+                        <div className="flex h-10 w-10 items-center justify-center border-2 border-foreground bg-muted shrink-0">
                           <FileText className="h-5 w-5" />
                         </div>
-                        <div>
+                        <div className="flex-1">
                           <p className="font-bold">{doc.name}</p>
-                          <p className="text-sm text-muted-foreground">{doc.date}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {doc.date} · {doc.size} · {doc.status}
+                          </p>
                         </div>
                       </div>
                       <Button
-                        variant="outline"
-                        size="sm"
-                        className="border-2 border-foreground bg-transparent font-bold"
+                        className="border-2 border-foreground bg-primary px-4 py-2 font-bold shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(26,26,26,1)]"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedDocument(getDocumentObject(doc.name));
+                        }}
                       >
-                        <Download className="mr-1 h-4 w-4" />
-                        Download
+                        <FileText className="mr-2 h-4 w-4" />
+                        View
                       </Button>
                     </div>
                   ))}
                 </div>
               </Card>
+
+              {/* Document Viewer Modal */}
+              {selectedDocument && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                  <div className="max-h-[90vh] max-w-2xl w-full overflow-y-auto border-3 border-foreground bg-card shadow-[8px_8px_0px_0px_rgba(26,26,26,1)]">
+                    {/* Modal Header */}
+                    <div className="sticky top-0 border-b-3 border-foreground bg-card px-6 py-4 flex items-center justify-between">
+                      <h2 className="text-xl font-bold">
+                        {selectedDocument.title}
+                      </h2>
+                      <button
+                        onClick={() => setSelectedDocument(null)}
+                        className="flex h-8 w-8 items-center justify-center border-2 border-foreground bg-muted hover:bg-primary transition-all"
+                      >
+                        <X className="h-5 w-5" />
+                      </button>
+                    </div>
+
+                    {/* Modal Content */}
+                    <div className="p-6 space-y-6">
+                      {/* Document Info */}
+                      <div className="flex flex-wrap gap-4 text-sm font-bold border-b-2 border-dashed border-foreground pb-4">
+                        <div>
+                          <p className="text-xs text-muted-foreground">Date</p>
+                          <p>{selectedDocument.date}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">Size</p>
+                          <p>{selectedDocument.size}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">
+                            Status
+                          </p>
+                          <span className="capitalize inline-flex items-center gap-1 border-2 border-foreground px-2 py-1 bg-primary">
+                            {selectedDocument.status}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Document Sections */}
+                      <div className="space-y-6">
+                        {selectedDocument.content.sections.map(
+                          (section, idx) => (
+                            <div
+                              key={idx}
+                              className="border-l-4 border-primary pl-4"
+                            >
+                              <h3 className="font-bold text-lg mb-2">
+                                {section.title}
+                              </h3>
+                              {"content" in section && section.content && (
+                                <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                                  {section.content}
+                                </p>
+                              )}
+                              {"items" in section && section.items && (
+                                <ul className="space-y-2">
+                                  {section.items.map((item, itemIdx) => (
+                                    <li
+                                      key={itemIdx}
+                                      className="flex gap-3 text-sm text-muted-foreground"
+                                    >
+                                      <span className="font-bold text-primary">
+                                        •
+                                      </span>
+                                      <span>{item}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+                          ),
+                        )}
+                      </div>
+
+                      {/* Modal Footer */}
+                      <div className="border-t-3 border-foreground pt-4 flex gap-3">
+                        <Button className="flex-1 border-2 border-foreground bg-primary py-3 font-bold shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]">
+                          <Download className="mr-2 h-4 w-4" />
+                          Download PDF
+                        </Button>
+                        <Button
+                          onClick={() => setSelectedDocument(null)}
+                          className="flex-1 border-2 border-foreground bg-transparent font-bold hover:bg-muted"
+                        >
+                          Close
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Contact Cards */}
@@ -279,9 +391,13 @@ export default function TenantLeasePage() {
                   </div>
                   <div>
                     <p className="font-bold">{leaseDetails.agent.name}</p>
-                    <p className="text-sm text-muted-foreground">Property Agent</p>
+                    <p className="text-sm text-muted-foreground">
+                      Property Agent
+                    </p>
                     <div className="mt-1 flex items-center gap-1">
-                      <span className="text-sm font-bold">{leaseDetails.agent.rating}</span>
+                      <span className="text-sm font-bold">
+                        {leaseDetails.agent.rating}
+                      </span>
                       <span className="text-accent">★</span>
                     </div>
                   </div>
@@ -313,7 +429,9 @@ export default function TenantLeasePage() {
                   </div>
                   <div>
                     <p className="font-bold">{leaseDetails.landlord.name}</p>
-                    <p className="text-sm text-muted-foreground">{leaseDetails.landlord.company}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {leaseDetails.landlord.company}
+                    </p>
                   </div>
                 </div>
                 <div className="space-y-2 border-t-2 border-foreground pt-4">
@@ -332,7 +450,8 @@ export default function TenantLeasePage() {
               <Card className="border-3 border-foreground bg-accent/30 p-6 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
                 <h3 className="mb-2 font-bold">Need Help?</h3>
                 <p className="mb-4 text-sm text-muted-foreground">
-                  Having issues with your lease or property? Contact our support team.
+                  Having issues with your lease or property? Contact our support
+                  team.
                 </p>
                 <Button
                   variant="outline"
@@ -346,5 +465,5 @@ export default function TenantLeasePage() {
         </div>
       </main>
     </div>
-  )
+  );
 }
