@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
+import { useState } from "react";
+import Link from "next/link";
 import {
   Home,
   Building2,
@@ -18,24 +18,26 @@ import {
   Save,
   Eye,
   EyeOff,
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
-import { DashboardHeader } from "@/components/dashboard-header"
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { DashboardHeader } from "@/components/dashboard-header";
 
 export default function LandlordSettingsPage() {
-  const [activeTab, setActiveTab] = useState<"profile" | "notifications" | "security" | "payment">("profile")
-  const [showPassword, setShowPassword] = useState(false)
+  const [activeTab, setActiveTab] = useState<
+    "profile" | "notifications" | "security" | "payment"
+  >("profile");
+  const [showPassword, setShowPassword] = useState(false);
 
   const tabs = [
     { id: "profile", label: "Profile", icon: User },
     { id: "notifications", label: "Notifications", icon: Bell },
     { id: "security", label: "Security", icon: Shield },
     { id: "payment", label: "Payment", icon: CreditCard },
-  ]
+  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -66,11 +68,11 @@ export default function LandlordSettingsPage() {
               My Properties
             </Link>
             <Link
-              href="/dashboard/landlord/agents"
+              href="/dashboard/landlord/tenants"
               className="flex items-center gap-3 border-3 border-foreground bg-card p-3 font-bold transition-all hover:bg-muted hover:shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]"
             >
               <Users className="h-5 w-5" />
-              My Agents
+              My Tenants
             </Link>
             <Link
               href="/messages"
@@ -96,7 +98,9 @@ export default function LandlordSettingsPage() {
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-foreground">Settings</h1>
-            <p className="mt-1 text-muted-foreground">Manage your account preferences</p>
+            <p className="mt-1 text-muted-foreground">
+              Manage your account preferences
+            </p>
           </div>
 
           {/* Tabs */}
@@ -121,39 +125,47 @@ export default function LandlordSettingsPage() {
           {activeTab === "profile" && (
             <Card className="border-3 border-foreground p-6 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
               <h2 className="mb-6 text-xl font-bold">Profile Information</h2>
-              
+
               <div className="mb-8 flex items-center gap-6">
                 <div className="flex h-24 w-24 items-center justify-center border-3 border-foreground bg-accent text-3xl font-bold">
                   CO
                 </div>
                 <div>
-                  <Button variant="outline" className="border-3 border-foreground bg-transparent font-bold">
+                  <Button
+                    variant="outline"
+                    className="border-3 border-foreground bg-transparent font-bold"
+                  >
                     Change Photo
                   </Button>
-                  <p className="mt-2 text-sm text-muted-foreground">JPG, PNG or GIF. Max 2MB</p>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    JPG, PNG or GIF. Max 2MB
+                  </p>
                 </div>
               </div>
 
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="space-y-2">
-                  <Label className="font-bold">Full Name</Label>
+                  <Label htmlFor="full-name" className="font-bold">Full Name</Label>
                   <Input
+                    id="full-name"
                     defaultValue="Chief Emeka Okonkwo"
                     className="border-3 border-foreground bg-background py-5 shadow-[3px_3px_0px_0px_rgba(26,26,26,1)]"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="font-bold">Company Name</Label>
+                  <Label htmlFor="company-name" className="font-bold">Company Name</Label>
                   <Input
+                    id="company-name"
                     defaultValue="Okonkwo Properties Ltd"
                     className="border-3 border-foreground bg-background py-5 shadow-[3px_3px_0px_0px_rgba(26,26,26,1)]"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="font-bold">Email Address</Label>
+                  <Label htmlFor="email" className="font-bold">Email Address</Label>
                   <div className="relative">
                     <Mail className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
                     <Input
+                      id="email"
                       type="email"
                       defaultValue="chief@okonkwoproperties.com"
                       className="border-3 border-foreground bg-background py-5 pl-12 shadow-[3px_3px_0px_0px_rgba(26,26,26,1)]"
@@ -161,20 +173,22 @@ export default function LandlordSettingsPage() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label className="font-bold">Phone Number</Label>
+                  <Label htmlFor="phone" className="font-bold">Phone Number</Label>
                   <div className="relative">
                     <Phone className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
                     <Input
+                      id="phone"
                       defaultValue="+234 803 456 7890"
                       className="border-3 border-foreground bg-background py-5 pl-12 shadow-[3px_3px_0px_0px_rgba(26,26,26,1)]"
                     />
                   </div>
                 </div>
                 <div className="space-y-2 md:col-span-2">
-                  <Label className="font-bold">Address</Label>
+                  <Label htmlFor="address" className="font-bold">Address</Label>
                   <div className="relative">
                     <MapPin className="absolute left-4 top-4 h-5 w-5 text-muted-foreground" />
                     <Input
+                      id="address"
                       defaultValue="15 Adeola Odeku Street, Victoria Island, Lagos"
                       className="border-3 border-foreground bg-background py-5 pl-12 shadow-[3px_3px_0px_0px_rgba(26,26,26,1)]"
                     />
@@ -183,7 +197,7 @@ export default function LandlordSettingsPage() {
               </div>
 
               <div className="mt-6 flex justify-end">
-                <Button className="border-3 border-foreground bg-primary px-6 py-5 font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]">
+                <Button className="border-3 border-foreground bg-primary px-6 py-5 font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]">
                   <Save className="mr-2 h-4 w-4" />
                   Save Changes
                 </Button>
@@ -194,20 +208,45 @@ export default function LandlordSettingsPage() {
           {/* Notifications Tab */}
           {activeTab === "notifications" && (
             <Card className="border-3 border-foreground p-6 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
-              <h2 className="mb-6 text-xl font-bold">Notification Preferences</h2>
-              
+              <h2 className="mb-6 text-xl font-bold">
+                Notification Preferences
+              </h2>
+
               <div className="space-y-6">
                 {[
-                  { title: "New Inquiries", description: "Get notified when tenants inquire about your properties", defaultChecked: true },
-                  { title: "Agent Applications", description: "Get notified when agents apply to manage your properties", defaultChecked: true },
-                  { title: "Payment Updates", description: "Get notified about tenant payment status", defaultChecked: true },
-                  { title: "Property Views", description: "Weekly summary of property views and engagement", defaultChecked: false },
-                  { title: "Marketing Tips", description: "Tips to improve your property listings", defaultChecked: false },
+                  {
+                    title: "New Inquiries",
+                    description:
+                      "Get notified when tenants inquire about your properties",
+                    defaultChecked: true,
+                  },
+
+                  {
+                    title: "Payment Updates",
+                    description: "Get notified about tenant payment status",
+                    defaultChecked: true,
+                  },
+                  {
+                    title: "Property Views",
+                    description:
+                      "Weekly summary of property views and engagement",
+                    defaultChecked: false,
+                  },
+                  {
+                    title: "Marketing Tips",
+                    description: "Tips to improve your property listings",
+                    defaultChecked: false,
+                  },
                 ].map((item) => (
-                  <div key={item.title} className="flex items-center justify-between border-b-2 border-foreground/10 pb-4 last:border-0">
+                  <div
+                    key={item.title}
+                    className="flex items-center justify-between border-b-2 border-foreground/10 pb-4 last:border-0"
+                  >
                     <div>
                       <p className="font-bold">{item.title}</p>
-                      <p className="text-sm text-muted-foreground">{item.description}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {item.description}
+                      </p>
                     </div>
                     <Switch defaultChecked={item.defaultChecked} />
                   </div>
@@ -220,15 +259,16 @@ export default function LandlordSettingsPage() {
           {activeTab === "security" && (
             <Card className="border-3 border-foreground p-6 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
               <h2 className="mb-6 text-xl font-bold">Security Settings</h2>
-              
+
               <div className="space-y-6">
                 <div className="space-y-4">
                   <h3 className="font-bold">Change Password</h3>
                   <div className="grid gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                      <Label>Current Password</Label>
+                      <Label htmlFor="current-password">Current Password</Label>
                       <div className="relative">
                         <Input
+                          id="current-password"
                           type={showPassword ? "text" : "password"}
                           className="border-3 border-foreground bg-background py-5 pr-12 shadow-[3px_3px_0px_0px_rgba(26,26,26,1)]"
                         />
@@ -237,21 +277,27 @@ export default function LandlordSettingsPage() {
                           onClick={() => setShowPassword(!showPassword)}
                           className="absolute right-4 top-1/2 -translate-y-1/2"
                         >
-                          {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                          {showPassword ? (
+                            <EyeOff className="h-5 w-5" />
+                          ) : (
+                            <Eye className="h-5 w-5" />
+                          )}
                         </button>
                       </div>
                     </div>
                     <div />
                     <div className="space-y-2">
-                      <Label>New Password</Label>
+                      <Label htmlFor="new-password">New Password</Label>
                       <Input
+                        id="new-password"
                         type="password"
                         className="border-3 border-foreground bg-background py-5 shadow-[3px_3px_0px_0px_rgba(26,26,26,1)]"
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label>Confirm New Password</Label>
+                      <Label htmlFor="confirm-new-password">Confirm New Password</Label>
                       <Input
+                        id="confirm-new-password"
                         type="password"
                         className="border-3 border-foreground bg-background py-5 shadow-[3px_3px_0px_0px_rgba(26,26,26,1)]"
                       />
@@ -266,7 +312,9 @@ export default function LandlordSettingsPage() {
                   <h3 className="font-bold mb-4">Two-Factor Authentication</h3>
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-muted-foreground">Add an extra layer of security to your account</p>
+                      <p className="text-muted-foreground">
+                        Add an extra layer of security to your account
+                      </p>
                     </div>
                     <Switch />
                   </div>
@@ -279,27 +327,38 @@ export default function LandlordSettingsPage() {
           {activeTab === "payment" && (
             <Card className="border-3 border-foreground p-6 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
               <h2 className="mb-6 text-xl font-bold">Payment Settings</h2>
-              
+
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-bold mb-4">Bank Account for Rent Payments</h3>
+                  <h3 className="font-bold mb-4">
+                    Bank Account for Rent Payments
+                  </h3>
                   <div className="border-3 border-foreground bg-muted p-4">
                     <div className="grid gap-4 md:grid-cols-3">
                       <div>
-                        <p className="text-sm text-muted-foreground">Bank Name</p>
+                        <p className="text-sm text-muted-foreground">
+                          Bank Name
+                        </p>
                         <p className="font-bold">First Bank Nigeria</p>
                       </div>
                       <div>
-                        <p className="text-sm text-muted-foreground">Account Number</p>
+                        <p className="text-sm text-muted-foreground">
+                          Account Number
+                        </p>
                         <p className="font-bold">••••••4567</p>
                       </div>
                       <div>
-                        <p className="text-sm text-muted-foreground">Account Name</p>
+                        <p className="text-sm text-muted-foreground">
+                          Account Name
+                        </p>
                         <p className="font-bold">Okonkwo Properties Ltd</p>
                       </div>
                     </div>
                   </div>
-                  <Button variant="outline" className="mt-4 border-3 border-foreground bg-transparent font-bold">
+                  <Button
+                    variant="outline"
+                    className="mt-4 border-3 border-foreground bg-transparent font-bold"
+                  >
                     Update Bank Details
                   </Button>
                 </div>
@@ -308,14 +367,33 @@ export default function LandlordSettingsPage() {
                   <h3 className="font-bold mb-4">Payment History</h3>
                   <div className="space-y-3">
                     {[
-                      { date: "Dec 2024", amount: "₦5,700,000", status: "Received" },
-                      { date: "Nov 2024", amount: "₦5,700,000", status: "Received" },
-                      { date: "Oct 2024", amount: "₦3,500,000", status: "Received" },
+                      {
+                        date: "Dec 2024",
+                        amount: "₦5,700,000",
+                        status: "Received",
+                      },
+                      {
+                        date: "Nov 2024",
+                        amount: "₦5,700,000",
+                        status: "Received",
+                      },
+                      {
+                        date: "Oct 2024",
+                        amount: "₦3,500,000",
+                        status: "Received",
+                      },
                     ].map((payment) => (
-                      <div key={payment.date} className="flex items-center justify-between border-b border-foreground/10 pb-3">
-                        <span className="text-muted-foreground">{payment.date}</span>
+                      <div
+                        key={payment.date}
+                        className="flex items-center justify-between border-b border-foreground/10 pb-3"
+                      >
+                        <span className="text-muted-foreground">
+                          {payment.date}
+                        </span>
                         <span className="font-bold">{payment.amount}</span>
-                        <span className="border-2 border-foreground bg-secondary px-2 py-0.5 text-sm font-bold">{payment.status}</span>
+                        <span className="border-2 border-foreground bg-secondary px-2 py-0.5 text-sm font-bold">
+                          {payment.status}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -326,5 +404,5 @@ export default function LandlordSettingsPage() {
         </div>
       </main>
     </div>
-  )
+  );
 }

@@ -1,12 +1,11 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
+import { useState } from "react";
+import Link from "next/link";
 import {
   Home,
   Plus,
   Building2,
-  Users,
   MessageSquare,
   Settings,
   MapPin,
@@ -17,20 +16,18 @@ import {
   Edit,
   Trash2,
   Eye,
-  CheckCircle,
   Clock,
   Search,
-  Filter,
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 
 const myProperties = [
   {
@@ -42,7 +39,7 @@ const myProperties = [
     baths: 2,
     sqm: 150,
     status: "active",
-    agent: { name: "Adebayo Johnson", avatar: "AJ" },
+    tenant: { name: "Ngozi Adekunle", avatar: "NA" },
     views: 234,
     inquiries: 12,
   },
@@ -55,7 +52,7 @@ const myProperties = [
     baths: 2,
     sqm: 95,
     status: "active",
-    agent: { name: "Chioma Okafor", avatar: "CO" },
+    tenant: { name: "Chidinma Okoro", avatar: "CO" },
     views: 156,
     inquiries: 8,
   },
@@ -68,7 +65,7 @@ const myProperties = [
     baths: 3,
     sqm: 220,
     status: "pending",
-    agent: null,
+    tenant: null,
     views: 0,
     inquiries: 0,
   },
@@ -81,22 +78,24 @@ const myProperties = [
     baths: 1,
     sqm: 55,
     status: "inactive",
-    agent: { name: "Funke Adeyemi", avatar: "FA" },
+    tenant: { name: "Yusuf Hassan", avatar: "YH" },
     views: 89,
     inquiries: 3,
   },
-]
+];
 
 export default function LandlordPropertiesPage() {
-  const [searchQuery, setSearchQuery] = useState("")
-  const [statusFilter, setStatusFilter] = useState<string>("all")
+  const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState<string>("all");
 
   const filteredProperties = myProperties.filter((property) => {
-    const matchesSearch = property.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      property.location.toLowerCase().includes(searchQuery.toLowerCase())
-    const matchesStatus = statusFilter === "all" || property.status === statusFilter
-    return matchesSearch && matchesStatus
-  })
+    const matchesSearch =
+      property.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      property.location.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesStatus =
+      statusFilter === "all" || property.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
 
   return (
     <div className="min-h-screen bg-background">
@@ -125,13 +124,6 @@ export default function LandlordPropertiesPage() {
               My Properties
             </Link>
             <Link
-              href="/dashboard/landlord/agents"
-              className="flex items-center gap-3 border-3 border-foreground bg-card p-3 font-bold transition-all hover:bg-muted hover:shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]"
-            >
-              <Users className="h-5 w-5" />
-              My Agents
-            </Link>
-            <Link
               href="/messages"
               className="flex items-center gap-3 border-3 border-foreground bg-card p-3 font-bold transition-all hover:bg-muted hover:shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]"
             >
@@ -155,11 +147,15 @@ export default function LandlordPropertiesPage() {
           {/* Header */}
           <div className="mb-8 flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-foreground">My Properties</h1>
-              <p className="mt-1 text-muted-foreground">Manage all your listed properties</p>
+              <h1 className="text-3xl font-bold text-foreground">
+                My Properties
+              </h1>
+              <p className="mt-1 text-muted-foreground">
+                Manage all your listed properties
+              </p>
             </div>
             <Link href="/dashboard/landlord/properties/new">
-              <Button className="border-3 border-foreground bg-primary px-6 py-5 font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]">
+              <Button className="border-3 border-foreground bg-primary px-6 py-5 font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]">
                 <Plus className="mr-2 h-5 w-5" />
                 Add Property
               </Button>
@@ -201,37 +197,52 @@ export default function LandlordPropertiesPage() {
                 <Building2 className="mx-auto h-16 w-16 text-muted-foreground" />
                 <h3 className="mt-4 text-xl font-bold">No Properties Found</h3>
                 <p className="mt-2 text-muted-foreground">
-                  {searchQuery ? "Try a different search term" : "Start by adding your first property"}
+                  {searchQuery
+                    ? "Try a different search term"
+                    : "Start by adding your first property"}
                 </p>
               </Card>
             ) : (
-              filteredProperties.map((property) => (
-                <Card
-                  key={property.id}
-                  className="border-3 border-foreground p-0 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]"
-                >
-                  <div className="flex">
-                    <div className="relative h-48 w-72 flex-shrink-0 border-r-3 border-foreground bg-muted">
-                      <div className="flex h-full items-center justify-center">
-                        <Building2 className="h-16 w-16 text-muted-foreground" />
+              filteredProperties.map((property) => {
+                let statusBadgeClass = "bg-muted"
+                let statusLabel = "Inactive"
+
+                switch (property.status) {
+                  case "active":
+                    statusBadgeClass = "bg-secondary"
+                    statusLabel = "Active"
+                    break
+                  case "pending":
+                    statusBadgeClass = "bg-accent"
+                    statusLabel = "Pending Agent"
+                    break
+                  default:
+                    break
+                }
+
+                return (
+                  <Card
+                    key={property.id}
+                    className="border-3 border-foreground p-0 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]"
+                  >
+                    <div className="flex">
+                      <div className="relative h-48 w-72 shrink-0 border-r-3 border-foreground bg-muted">
+                        <div className="flex h-full items-center justify-center">
+                          <Building2 className="h-16 w-16 text-muted-foreground" />
+                        </div>
+                        <div
+                          className={`absolute left-3 top-3 border-2 border-foreground px-3 py-1 text-sm font-bold ${statusBadgeClass}`}
+                        >
+                          {statusLabel}
+                        </div>
                       </div>
-                      <div
-                        className={`absolute left-3 top-3 border-2 border-foreground px-3 py-1 text-sm font-bold ${
-                          property.status === "active"
-                            ? "bg-secondary"
-                            : property.status === "pending"
-                              ? "bg-accent"
-                              : "bg-muted"
-                        }`}
-                      >
-                        {property.status === "active" ? "Active" : property.status === "pending" ? "Pending Agent" : "Inactive"}
-                      </div>
-                    </div>
 
                     <div className="flex flex-1 flex-col p-6">
                       <div className="mb-4 flex items-start justify-between">
                         <div>
-                          <h3 className="text-xl font-bold text-foreground">{property.title}</h3>
+                          <h3 className="text-xl font-bold text-foreground">
+                            {property.title}
+                          </h3>
                           <p className="mt-1 flex items-center gap-1 text-muted-foreground">
                             <MapPin className="h-4 w-4" />
                             {property.location}
@@ -239,14 +250,24 @@ export default function LandlordPropertiesPage() {
                         </div>
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
-                            <Button variant="outline" size="icon" className="border-3 border-foreground bg-transparent">
+                            <Button
+                              variant="outline"
+                              size="icon"
+                              className="border-3 border-foreground bg-transparent"
+                            >
                               <MoreVertical className="h-4 w-4" />
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent className="border-3 border-foreground">
-                            <DropdownMenuItem><Edit className="mr-2 h-4 w-4" /> Edit Property</DropdownMenuItem>
-                            <DropdownMenuItem><Eye className="mr-2 h-4 w-4" /> View Listing</DropdownMenuItem>
-                            <DropdownMenuItem className="text-destructive"><Trash2 className="mr-2 h-4 w-4" /> Delete</DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <Edit className="mr-2 h-4 w-4" /> Edit Property
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                              <Eye className="mr-2 h-4 w-4" /> View Listing
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="text-destructive">
+                              <Trash2 className="mr-2 h-4 w-4" /> Delete
+                            </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
                       </div>
@@ -267,39 +288,51 @@ export default function LandlordPropertiesPage() {
                         <div className="flex items-center gap-6">
                           <p className="text-2xl font-bold text-primary">
                             ₦{property.price.toLocaleString()}
-                            <span className="text-sm font-normal text-muted-foreground">/year</span>
+                            <span className="text-sm font-normal text-muted-foreground">
+                              /year
+                            </span>
                           </p>
                           <div className="flex gap-4 text-sm text-muted-foreground">
-                            <span className="flex items-center gap-1"><Eye className="h-4 w-4" /> {property.views} views</span>
-                            <span className="flex items-center gap-1"><MessageSquare className="h-4 w-4" /> {property.inquiries} inquiries</span>
+                            <span className="flex items-center gap-1">
+                              <Eye className="h-4 w-4" /> {property.views} views
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <MessageSquare className="h-4 w-4" />{" "}
+                              {property.inquiries} inquiries
+                            </span>
                           </div>
                         </div>
 
-                        {property.agent ? (
+                        {property.tenant ? (
                           <div className="flex items-center gap-3 border-3 border-foreground bg-secondary/30 px-4 py-2">
                             <div className="flex h-10 w-10 items-center justify-center border-2 border-foreground bg-secondary font-bold">
-                              {property.agent.avatar}
+                              {property.tenant.avatar}
                             </div>
                             <div>
-                              <p className="text-sm font-bold">{property.agent.name}</p>
-                              <p className="text-xs text-muted-foreground">Managing Agent</p>
+                              <p className="text-sm font-bold">
+                                {property.tenant.name}
+                              </p>
+                              <p className="text-xs text-muted-foreground">
+                                Current Tenant
+                              </p>
                             </div>
                           </div>
                         ) : (
                           <div className="flex items-center gap-2 border-3 border-dashed border-foreground bg-accent/30 px-4 py-2">
                             <Clock className="h-5 w-5" />
-                            <span className="font-medium">Awaiting Agent</span>
+                            <span className="font-medium">Vacant</span>
                           </div>
                         )}
                       </div>
                     </div>
-                  </div>
-                </Card>
-              ))
+                    </div>
+                  </Card>
+                )
+              })
             )}
           </div>
         </div>
       </main>
     </div>
-  )
+  );
 }

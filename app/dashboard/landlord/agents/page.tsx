@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import Link from "next/link"
 import {
   Home,
@@ -9,7 +8,6 @@ import {
   MessageSquare,
   Settings,
   Star,
-  MapPin,
   Phone,
   Mail,
   MoreVertical,
@@ -214,7 +212,7 @@ export default function LandlordAgentsPage() {
                   {/* Actions */}
                   <div className="flex items-start gap-2">
                     <Link href="/messages">
-                      <Button className="border-3 border-foreground bg-secondary font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]">
+                      <Button className="border-3 border-foreground bg-secondary font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]">
                         <MessageSquare className="mr-2 h-4 w-4" />
                         Message
                       </Button>

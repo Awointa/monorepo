@@ -132,21 +132,31 @@ export default function NewPropertyPage() {
 
         {/* Progress Steps */}
         <div className="mb-8 flex items-center gap-4">
-          {[1, 2, 3].map((s) => (
-            <div key={s} className="flex items-center gap-2">
-              <div
-                className={`flex h-10 w-10 items-center justify-center border-3 border-foreground font-bold ${
-                  step >= s ? "bg-primary" : "bg-muted"
-                }`}
-              >
-                {s}
+          {[1, 2, 3].map((s) => {
+            let stepLabel = "Amenities";
+            if (s === 1) stepLabel = "Basic Info";
+            else if (s === 2) stepLabel = "Photos";
+
+            return (
+              <div key={s} className="flex items-center gap-2">
+                <div
+                  className={`flex h-10 w-10 items-center justify-center border-3 border-foreground font-bold ${
+                    step >= s ? "bg-primary" : "bg-muted"
+                  }`}
+                >
+                  {s}
+                </div>
+                <span
+                  className={`font-medium ${step >= s ? "text-foreground" : "text-muted-foreground"}`}
+                >
+                  {stepLabel}
+                </span>
+                {s < 3 && (
+                  <div className="mx-2 h-1 w-12 border-2 border-foreground bg-muted" />
+                )}
               </div>
-              <span className={`font-medium ${step >= s ? "text-foreground" : "text-muted-foreground"}`}>
-                {s === 1 ? "Basic Info" : s === 2 ? "Photos" : "Amenities"}
-              </span>
-              {s < 3 && <div className="mx-2 h-1 w-12 border-2 border-foreground bg-muted" />}
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Step 1: Basic Info */}
@@ -184,12 +194,15 @@ export default function NewPropertyPage() {
 
               <div className="grid grid-cols-2 gap-6">
                 <div className="grid gap-2">
-                  <Label className="text-base font-bold">Property Type</Label>
+                  <Label htmlFor="propertyType" className="text-base font-bold">Property Type</Label>
                   <Select
                     value={formData.propertyType}
                     onValueChange={(value) => setFormData({ ...formData, propertyType: value })}
                   >
-                    <SelectTrigger className="border-3 border-foreground p-4 text-lg shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
+                    <SelectTrigger
+                      id="propertyType"
+                      className="border-3 border-foreground p-4 text-lg shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]"
+                    >
                       <SelectValue placeholder="Select type" />
                     </SelectTrigger>
                     <SelectContent className="border-3 border-foreground">
@@ -204,12 +217,15 @@ export default function NewPropertyPage() {
                 </div>
 
                 <div className="grid gap-2">
-                  <Label className="text-base font-bold">Location</Label>
+                  <Label htmlFor="location" className="text-base font-bold">Location</Label>
                   <Select
                     value={formData.location}
                     onValueChange={(value) => setFormData({ ...formData, location: value })}
                   >
-                    <SelectTrigger className="border-3 border-foreground p-4 text-lg shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
+                    <SelectTrigger
+                      id="location"
+                      className="border-3 border-foreground p-4 text-lg shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]"
+                    >
                       <SelectValue placeholder="Select area" />
                     </SelectTrigger>
                     <SelectContent className="border-3 border-foreground">
@@ -313,7 +329,7 @@ export default function NewPropertyPage() {
             <div className="mt-8 flex justify-end">
               <Button
                 onClick={() => setStep(2)}
-                className="border-3 border-foreground bg-primary px-8 py-6 text-lg font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
+                className="border-3 border-foreground bg-primary px-8 py-6 text-lg font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
               >
                 Continue to Photos
               </Button>
@@ -331,7 +347,7 @@ export default function NewPropertyPage() {
 
             {/* Room Type Selector */}
             <div className="mb-8">
-              <Label className="mb-4 block text-base font-bold">Select room type and upload photos</Label>
+              <p className="mb-4 block text-base font-bold">Select room type and upload photos</p>
               <div className="grid grid-cols-4 gap-4">
                 {roomTypes.map((room) => {
                   const roomImages = images.filter((img) => img.roomType === room.id)
@@ -358,9 +374,9 @@ export default function NewPropertyPage() {
             {/* Uploaded Images Grid */}
             {images.length > 0 && (
               <div className="mb-8">
-                <Label className="mb-4 block text-base font-bold">
+                <p className="mb-4 block text-base font-bold">
                   Uploaded Photos ({images.length})
-                </Label>
+                </p>
                 <div className="grid grid-cols-4 gap-4">
                   {images.map((image) => {
                     const roomType = roomTypes.find((r) => r.id === image.roomType)
@@ -400,13 +416,13 @@ export default function NewPropertyPage() {
               <Button
                 variant="outline"
                 onClick={() => setStep(1)}
-                className="border-3 border-foreground bg-transparent px-8 py-6 text-lg font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
+                className="border-3 border-foreground bg-transparent px-8 py-6 text-lg font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
               >
                 Back
               </Button>
               <Button
                 onClick={() => setStep(3)}
-                className="border-3 border-foreground bg-primary px-8 py-6 text-lg font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
+                className="border-3 border-foreground bg-primary px-8 py-6 text-lg font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
               >
                 Continue to Amenities
               </Button>
@@ -442,13 +458,13 @@ export default function NewPropertyPage() {
               <Button
                 variant="outline"
                 onClick={() => setStep(2)}
-                className="border-3 border-foreground bg-transparent px-8 py-6 text-lg font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
+                className="border-3 border-foreground bg-transparent px-8 py-6 text-lg font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
               >
                 Back
               </Button>
               <Button
                 onClick={handleSubmit}
-                className="border-3 border-foreground bg-primary px-8 py-6 text-lg font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
+                className="border-3 border-foreground bg-primary px-8 py-6 text-lg font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
               >
                 Publish Property
               </Button>

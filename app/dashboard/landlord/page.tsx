@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
+import { useState } from "react";
+import Link from "next/link";
 import {
   Home,
   Plus,
@@ -9,7 +9,6 @@ import {
   Users,
   MessageSquare,
   Settings,
-  ChevronRight,
   MapPin,
   Bed,
   Bath,
@@ -19,22 +18,19 @@ import {
   Trash2,
   Eye,
   CheckCircle,
-  Clock,
-  XCircle,
-  TrendingUp,
   DollarSign,
   Menu,
   X,
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { DashboardHeader } from "@/components/dashboard-header"
+} from "@/components/ui/dropdown-menu";
+import { DashboardHeader } from "@/components/dashboard-header";
 
 // Mock data for landlord's properties
 const myProperties = [
@@ -47,7 +43,6 @@ const myProperties = [
     baths: 2,
     sqm: 150,
     status: "active",
-    agent: { name: "Adebayo Johnson", avatar: "AJ" },
     views: 234,
     inquiries: 12,
     image: "/placeholder.svg?height=200&width=300",
@@ -61,7 +56,6 @@ const myProperties = [
     baths: 2,
     sqm: 95,
     status: "active",
-    agent: { name: "Chioma Okafor", avatar: "CO" },
     views: 156,
     inquiries: 8,
     image: "/placeholder.svg?height=200&width=300",
@@ -75,40 +69,39 @@ const myProperties = [
     baths: 3,
     sqm: 220,
     status: "pending",
-    agent: null,
     views: 0,
     inquiries: 0,
     image: "/placeholder.svg?height=200&width=300",
   },
-]
-
-const agentApplications = [
-  {
-    id: 1,
-    agent: { name: "Emeka Nwosu", avatar: "EN", rating: 4.8, properties: 15 },
-    property: "Spacious 4 Bedroom Duplex",
-    appliedAt: "2 hours ago",
-    message: "I have extensive experience managing luxury properties in Ikoyi...",
-  },
-  {
-    id: 2,
-    agent: { name: "Funke Adeyemi", avatar: "FA", rating: 4.6, properties: 22 },
-    property: "Spacious 4 Bedroom Duplex",
-    appliedAt: "5 hours ago",
-    message: "With over 5 years in property management, I can help you find...",
-  },
-]
+];
 
 const stats = [
-  { label: "Total Properties", value: "3", icon: Building2, color: "bg-primary" },
-  { label: "Active Listings", value: "2", icon: CheckCircle, color: "bg-secondary" },
+  {
+    label: "Total Properties",
+    value: "3",
+    icon: Building2,
+    color: "bg-primary",
+  },
+  {
+    label: "Active Listings",
+    value: "2",
+    icon: CheckCircle,
+    color: "bg-secondary",
+  },
   { label: "Total Views", value: "390", icon: Eye, color: "bg-accent" },
-  { label: "Monthly Revenue", value: "5.7M", icon: DollarSign, color: "bg-primary" },
-]
+  {
+    label: "Monthly Revenue",
+    value: "5.7M",
+    icon: DollarSign,
+    color: "bg-primary",
+  },
+];
 
 export default function LandlordDashboard() {
-  const [activeTab, setActiveTab] = useState<"properties" | "applications">("properties")
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [activeTab, setActiveTab] = useState<"properties" | "applications">(
+    "properties",
+  );
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
@@ -124,14 +117,18 @@ export default function LandlordDashboard() {
 
       {/* Mobile Overlay */}
       {sidebarOpen && (
-        <div 
+        <button
+          type="button"
+          aria-label="Close sidebar"
           className="fixed inset-0 z-40 bg-foreground/50 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
-      <aside className={`fixed left-0 top-0 z-40 h-screen w-64 border-r-3 border-foreground bg-card pt-20 transition-transform lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <aside
+        className={`fixed left-0 top-0 z-40 h-screen w-64 border-r-3 border-foreground bg-card pt-20 transition-transform lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
+      >
         <div className="flex h-full flex-col px-4 py-6">
           <div className="mb-8 border-3 border-foreground bg-accent p-4 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
             <p className="text-sm font-medium text-foreground">Logged in as</p>
@@ -157,12 +154,12 @@ export default function LandlordDashboard() {
               My Properties
             </Link>
             <Link
-              href="/dashboard/landlord/agents"
+              href="/dashboard/landlord/tenants"
               className="flex items-center gap-3 border-3 border-foreground bg-card p-3 font-bold transition-all hover:bg-muted hover:shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]"
               onClick={() => setSidebarOpen(false)}
             >
               <Users className="h-5 w-5" />
-              My Agents
+              My Tenants
             </Link>
             <Link
               href="/messages"
@@ -193,13 +190,15 @@ export default function LandlordDashboard() {
           {/* Header */}
           <div className="mb-6 flex flex-col gap-4 md:mb-8 md:flex-row md:items-center md:justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">Welcome back, Chief!</h1>
+              <h1 className="text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
+                Welcome back, Chief!
+              </h1>
               <p className="mt-2 text-sm text-muted-foreground md:text-base lg:text-lg">
                 Here&apos;s what&apos;s happening with your properties
               </p>
             </div>
             <Link href="/dashboard/landlord/properties/new">
-              <Button className="w-full border-3 border-foreground bg-primary px-4 py-4 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] md:w-auto md:px-6 md:py-6 md:text-lg">
+              <Button className="w-full border-3 border-foreground bg-primary px-4 py-4 text-sm font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] md:w-auto md:px-6 md:py-6 md:text-lg">
                 <Plus className="mr-2 h-4 w-4 md:h-5 md:w-5" />
                 Add Property
               </Button>
@@ -220,8 +219,12 @@ export default function LandlordDashboard() {
                     <stat.icon className="h-5 w-5 md:h-7 md:w-7" />
                   </div>
                   <div className="min-w-0">
-                    <p className="truncate text-xs font-medium text-muted-foreground md:text-sm">{stat.label}</p>
-                    <p className="truncate text-xl font-bold text-foreground md:text-3xl">{stat.value}</p>
+                    <p className="truncate text-xs font-medium text-muted-foreground md:text-sm">
+                      {stat.label}
+                    </p>
+                    <p className="truncate text-xl font-bold text-foreground md:text-3xl">
+                      {stat.value}
+                    </p>
                   </div>
                 </div>
               </Card>
@@ -240,47 +243,41 @@ export default function LandlordDashboard() {
             >
               Properties
             </button>
-            <button
-              onClick={() => setActiveTab("applications")}
-              className={`border-3 border-foreground px-3 py-2 text-sm font-bold transition-all md:px-6 md:py-3 md:text-base ${
-                activeTab === "applications"
-                  ? "bg-foreground text-background shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]"
-                  : "bg-card hover:bg-muted"
-              }`}
-            >
-              Applications
-              {agentApplications.length > 0 && (
-                <span className="ml-2 inline-flex h-5 w-5 items-center justify-center border-2 border-foreground bg-destructive text-xs text-destructive-foreground md:h-6 md:w-6">
-                  {agentApplications.length}
-                </span>
-              )}
-            </button>
           </div>
 
           {/* Properties Tab */}
           {activeTab === "properties" && (
             <div className="grid gap-6">
-              {myProperties.map((property) => (
-                <Card
-                  key={property.id}
-                  className="border-3 border-foreground p-0 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]"
-                >
-                  <div className="flex">
+              {myProperties.map((property) => {
+                let statusBadgeClassName = "bg-muted"
+                if (property.status === "active") {
+                  statusBadgeClassName = "bg-secondary"
+                } else if (property.status === "pending") {
+                  statusBadgeClassName = "bg-accent"
+                }
+
+                let statusLabel = "Inactive"
+                if (property.status === "active") {
+                  statusLabel = "Active"
+                } else if (property.status === "pending") {
+                  statusLabel = "Pending"
+                }
+
+                return (
+                  <Card
+                    key={property.id}
+                    className="border-3 border-foreground p-0 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]"
+                  >
+                    <div className="flex">
                     {/* Property Image */}
-                    <div className="relative h-48 w-72 flex-shrink-0 border-r-3 border-foreground bg-muted">
+                    <div className="relative h-48 w-72 shrink-0 border-r-3 border-foreground bg-muted">
                       <div className="flex h-full items-center justify-center">
                         <Building2 className="h-16 w-16 text-muted-foreground" />
                       </div>
                       <div
-                        className={`absolute left-3 top-3 border-2 border-foreground px-3 py-1 text-sm font-bold ${
-                          property.status === "active"
-                            ? "bg-secondary"
-                            : property.status === "pending"
-                              ? "bg-accent"
-                              : "bg-muted"
-                        }`}
+                        className={`absolute left-3 top-3 border-2 border-foreground px-3 py-1 text-sm font-bold ${statusBadgeClassName}`}
                       >
-                        {property.status === "active" ? "Active" : property.status === "pending" ? "Pending Agent" : "Inactive"}
+                        {statusLabel}
                       </div>
                     </div>
 
@@ -288,7 +285,9 @@ export default function LandlordDashboard() {
                     <div className="flex flex-1 flex-col p-6">
                       <div className="mb-4 flex items-start justify-between">
                         <div>
-                          <h3 className="text-xl font-bold text-foreground">{property.title}</h3>
+                          <h3 className="text-xl font-bold text-foreground">
+                            {property.title}
+                          </h3>
                           <p className="mt-1 flex items-center gap-1 text-muted-foreground">
                             <MapPin className="h-4 w-4" />
                             {property.location}
@@ -334,109 +333,30 @@ export default function LandlordDashboard() {
                         <div className="flex items-center gap-6">
                           <p className="text-2xl font-bold text-primary">
                             ₦{property.price.toLocaleString()}
-                            <span className="text-sm font-normal text-muted-foreground">/year</span>
+                            <span className="text-sm font-normal text-muted-foreground">
+                              /year
+                            </span>
                           </p>
                           <div className="flex gap-4 text-sm text-muted-foreground">
                             <span className="flex items-center gap-1">
                               <Eye className="h-4 w-4" /> {property.views} views
                             </span>
                             <span className="flex items-center gap-1">
-                              <MessageSquare className="h-4 w-4" /> {property.inquiries} inquiries
+                              <MessageSquare className="h-4 w-4" />{" "}
+                              {property.inquiries} inquiries
                             </span>
                           </div>
                         </div>
-
-                        {property.agent ? (
-                          <div className="flex items-center gap-3 border-3 border-foreground bg-secondary/30 px-4 py-2">
-                            <div className="flex h-10 w-10 items-center justify-center border-2 border-foreground bg-secondary font-bold">
-                              {property.agent.avatar}
-                            </div>
-                            <div>
-                              <p className="text-sm font-bold">{property.agent.name}</p>
-                              <p className="text-xs text-muted-foreground">Managing Agent</p>
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="flex items-center gap-2 border-3 border-dashed border-foreground bg-accent/30 px-4 py-2">
-                            <Clock className="h-5 w-5" />
-                            <span className="font-medium">Awaiting Agent</span>
-                          </div>
-                        )}
                       </div>
                     </div>
                   </div>
                 </Card>
-              ))}
-            </div>
-          )}
-
-          {/* Agent Applications Tab */}
-          {activeTab === "applications" && (
-            <div className="grid gap-6">
-              {agentApplications.length === 0 ? (
-                <Card className="border-3 border-foreground p-12 text-center shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
-                  <Users className="mx-auto h-16 w-16 text-muted-foreground" />
-                  <h3 className="mt-4 text-xl font-bold">No Applications Yet</h3>
-                  <p className="mt-2 text-muted-foreground">
-                    When agents apply to manage your properties, they&apos;ll appear here.
-                  </p>
-                </Card>
-              ) : (
-                agentApplications.map((application) => (
-                  <Card
-                    key={application.id}
-                    className="border-3 border-foreground p-6 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]"
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex gap-4">
-                        <div className="flex h-16 w-16 items-center justify-center border-3 border-foreground bg-accent text-xl font-bold">
-                          {application.agent.avatar}
-                        </div>
-                        <div>
-                          <h3 className="text-xl font-bold">{application.agent.name}</h3>
-                          <div className="mt-1 flex items-center gap-4 text-sm text-muted-foreground">
-                            <span className="flex items-center gap-1">
-                              <TrendingUp className="h-4 w-4" /> {application.agent.rating} rating
-                            </span>
-                            <span>{application.agent.properties} properties managed</span>
-                          </div>
-                          <p className="mt-2 text-sm">
-                            Applied for: <span className="font-bold">{application.property}</span>
-                          </p>
-                          <p className="mt-2 text-muted-foreground">&quot;{application.message}&quot;</p>
-                        </div>
-                      </div>
-                      <div className="flex flex-col items-end gap-3">
-                        <span className="text-sm text-muted-foreground">{application.appliedAt}</span>
-                        <div className="flex gap-2">
-                          <Button className="border-3 border-foreground bg-secondary font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]">
-                            <CheckCircle className="mr-2 h-4 w-4" />
-                            Accept
-                          </Button>
-                          <Button
-                            variant="outline"
-                            className="border-3 border-foreground bg-transparent font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
-                          >
-                            <XCircle className="mr-2 h-4 w-4" />
-                            Decline
-                          </Button>
-                          <Button
-                            variant="outline"
-                            className="border-3 border-foreground bg-transparent font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
-                          >
-                            <MessageSquare className="mr-2 h-4 w-4" />
-                            Message
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-                ))
-              )}
+                )
+              })}
             </div>
           )}
         </div>
       </main>
     </div>
-  )
+  );
 }
