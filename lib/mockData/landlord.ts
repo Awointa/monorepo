@@ -176,3 +176,57 @@ export const landlordProperties = [
     inquiries: 3,
   },
 ]
+
+export const landlordTenants = [
+  {
+    id: 1,
+    name: "Ngozi Adekunle",
+    property: "Luxury 3 Bedroom Apartment, Victoria Island",
+    leaseStart: "Jan 1, 2025",
+    leaseEnd: "Dec 31, 2025",
+    monthlyPayment: 215000,
+    totalPaid: 1290000,
+    status: "active",
+    verified: true,
+  },
+  {
+    id: 2,
+    name: "Chidinma Okoro",
+    property: "Modern 2 Bedroom Flat, Lekki Phase 1",
+    leaseStart: "Feb 15, 2025",
+    leaseEnd: "Feb 14, 2026",
+    monthlyPayment: 165000,
+    totalPaid: 330000,
+    status: "active",
+    verified: true,
+  },
+  {
+    id: 3,
+    name: "Yusuf Hassan",
+    property: "Executive Studio Apartment, Ikeja GRA",
+    leaseStart: "Mar 1, 2025",
+    leaseEnd: "Feb 28, 2026",
+    monthlyPayment: 95000,
+    totalPaid: 95000,
+    status: "active",
+    verified: true,
+  },
+]
+
+export const landlordPaymentHistory = [
+  {
+    date: "Dec 2024",
+    amount: "₦5,700,000",
+    status: "Received",
+  },
+  {
+    date: "Nov 2024",
+    amount: "₦5,700,000",
+    status: "Received",
+  },
+  {
+    date: "Oct 2024",
+    amount: "₦3,500,000",
+    status: "Received",
+  },
+]

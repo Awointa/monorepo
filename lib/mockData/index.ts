@@ -36,6 +36,8 @@ export {
   tenantDashboardPaymentSchedule,
   tenantDashboardPastPayments,
   tenantSavedProperties,
+  tenantApplicationProperties,
+  tenantWhistleblowersToRate,
 } from "./tenant";
 
 // Agent dashboard & applications
@@ -46,6 +48,7 @@ export {
   agentMyApplications,
   agentDashboardStats,
   agentApplications,
+  agentRecentPayouts,
 } from "./agent";
 
 // Landlord dashboard & agents
@@ -55,6 +58,8 @@ export {
   landlordMyAgents,
   landlordAgentsStats,
   landlordProperties,
+  landlordTenants,
+  landlordPaymentHistory,
 } from "./landlord";
 
 // Whistleblower

@@ -221,3 +221,24 @@ export const agentApplications = [
       "I already manage two properties for Chief Okonkwo and would like to add this to my portfolio.",
   },
 ]
+
+export const agentRecentPayouts = [
+  {
+    date: "Jan 1, 2025",
+    amount: "₦450,000",
+    property: "Luxury 3BR Apartment",
+    status: "Paid",
+  },
+  {
+    date: "Dec 1, 2024",
+    amount: "₦380,000",
+    property: "Modern 2BR Flat",
+    status: "Paid",
+  },
+  {
+    date: "Nov 1, 2024",
+    amount: "₦290,000",
+    property: "Studio Apartment",
+    status: "Paid",
+  },
+]
