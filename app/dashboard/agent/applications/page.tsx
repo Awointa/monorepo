@@ -20,60 +20,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { DashboardHeader } from "@/components/dashboard-header"
-
-const applications = [
-  {
-    id: 1,
-    property: {
-      title: "Executive 5 Bedroom Mansion",
-      location: "Banana Island, Lagos",
-      price: 12000000,
-    },
-    landlord: { name: "Alhaji Bello", avatar: "AB" },
-    status: "pending",
-    appliedAt: "Jan 2, 2025",
-    message: "I have 5 years of experience managing luxury properties in Lagos. I would be honored to represent this property.",
-  },
-  {
-    id: 2,
-    property: {
-      title: "Penthouse Suite",
-      location: "Victoria Island, Lagos",
-      price: 8500000,
-    },
-    landlord: { name: "Mrs. Fashola", avatar: "MF" },
-    status: "accepted",
-    appliedAt: "Dec 28, 2024",
-    acceptedAt: "Dec 30, 2024",
-    message: "I specialize in high-end properties and have successfully rented 20+ units this year.",
-  },
-  {
-    id: 3,
-    property: {
-      title: "Garden Terrace Apartment",
-      location: "Ikoyi, Lagos",
-      price: 4200000,
-    },
-    landlord: { name: "Dr. Eze", avatar: "DE" },
-    status: "declined",
-    appliedAt: "Dec 20, 2024",
-    declinedAt: "Dec 22, 2024",
-    message: "I have experience with properties in the Ikoyi area and maintain strong tenant relationships.",
-    declineReason: "Position filled by another agent",
-  },
-  {
-    id: 4,
-    property: {
-      title: "Modern Duplex",
-      location: "Lekki Phase 2, Lagos",
-      price: 5500000,
-    },
-    landlord: { name: "Chief Okonkwo", avatar: "CO" },
-    status: "pending",
-    appliedAt: "Jan 5, 2025",
-    message: "I already manage two properties for Chief Okonkwo and would like to add this to my portfolio.",
-  },
-]
+import { agentApplications as applications } from "@/lib/mockData"
 
 export default function AgentApplicationsPage() {
   const [statusFilter, setStatusFilter] = useState<"all" | "pending" | "accepted" | "declined">("all")

@@ -23,55 +23,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-
-const myAgents = [
-  {
-    id: 1,
-    name: "Adebayo Johnson",
-    avatar: "AJ",
-    rating: 4.8,
-    reviews: 127,
-    properties: 2,
-    propertyNames: ["Luxury 3 Bedroom Apartment", "Modern 2 Bedroom Flat"],
-    totalInquiries: 20,
-    responseTime: "1 hour",
-    verified: true,
-    joinedDate: "Jan 2024",
-  },
-  {
-    id: 2,
-    name: "Chioma Okafor",
-    avatar: "CO",
-    rating: 4.6,
-    reviews: 89,
-    properties: 1,
-    propertyNames: ["Cozy Studio in Yaba"],
-    totalInquiries: 8,
-    responseTime: "2 hours",
-    verified: true,
-    joinedDate: "Mar 2024",
-  },
-  {
-    id: 3,
-    name: "Funke Adeyemi",
-    avatar: "FA",
-    rating: 4.5,
-    reviews: 45,
-    properties: 1,
-    propertyNames: ["Executive Studio Apartment"],
-    totalInquiries: 3,
-    responseTime: "3 hours",
-    verified: true,
-    joinedDate: "Jun 2024",
-  },
-]
-
-const stats = [
-  { label: "Total Agents", value: "3", icon: Users },
-  { label: "Avg. Rating", value: "4.6", icon: Star },
-  { label: "Total Inquiries Handled", value: "31", icon: MessageSquare },
-  { label: "Avg. Response Time", value: "2 hrs", icon: TrendingUp },
-]
+import {
+  landlordAgentsStats as stats,
+  landlordMyAgents as myAgents,
+} from "@/lib/mockData"
 
 export default function LandlordAgentsPage() {
   return (

@@ -22,26 +22,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { DashboardHeader } from "@/components/dashboard-header";
+import {
+  tenantCurrentLease as currentLease,
+  tenantDashboardPaymentSchedule as paymentSchedule,
+  tenantDashboardPastPayments as pastPayments,
+  tenantSavedProperties as savedProperties,
+} from "@/lib/mockData";
 
 // Wallet balance - checked first before auto-deduction
-const walletData = {
-  balance: 150000,
-  lastTopUp: "Dec 28, 2024",
-  autoPayEnabled: true,
-};
-
-const currentLease = {
-  property: "Modern 3 Bedroom Flat",
-  location: "Lekki Phase 1, Lagos",
-  monthlyPayment: 215000,
-  nextPaymentDate: "Jan 15, 2025",
-  leaseEnd: "Dec 31, 2025",
-  totalPaid: 1290000,
-  totalOwed: 2580000,
-  progress: 33,
-  agent: { name: "Adebayo Johnson", avatar: "AJ" },
-};
-
 type PaymentItem =
   | {
       month: string;
@@ -55,29 +43,6 @@ type PaymentItem =
       status: "paid";
       paidDate: string;
     };
-
-const paymentSchedule: PaymentItem[] = [
-  { month: "Jan 2025", amount: 215000, status: "upcoming", dueDate: "Jan 15" },
-  { month: "Feb 2025", amount: 215000, status: "pending", dueDate: "Feb 15" },
-  { month: "Mar 2025", amount: 215000, status: "pending", dueDate: "Mar 15" },
-  { month: "Apr 2025", amount: 215000, status: "pending", dueDate: "Apr 15" },
-];
-
-const pastPayments: PaymentItem[] = [
-  { month: "Dec 2024", amount: 215000, status: "paid", paidDate: "Dec 12" },
-  { month: "Nov 2024", amount: 215000, status: "paid", paidDate: "Nov 14" },
-  { month: "Oct 2024", amount: 215000, status: "paid", paidDate: "Oct 13" },
-];
-
-const savedProperties = [
-  {
-    id: 1,
-    title: "Luxury 2BR in VI",
-    location: "Victoria Island",
-    price: 2800000,
-  },
-  { id: 2, title: "Spacious Studio", location: "Ikeja GRA", price: 1500000 },
-];
 
 export default function TenantDashboard() {
   const [activeTab, setActiveTab] = useState<"overview" | "payments" | "saved">(

@@ -28,61 +28,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-const myProperties = [
-  {
-    id: 1,
-    title: "Luxury 3 Bedroom Apartment",
-    location: "Victoria Island, Lagos",
-    price: 3500000,
-    beds: 3,
-    baths: 2,
-    sqm: 150,
-    status: "active",
-    tenant: { name: "Ngozi Adekunle", avatar: "NA" },
-    views: 234,
-    inquiries: 12,
-  },
-  {
-    id: 2,
-    title: "Modern 2 Bedroom Flat",
-    location: "Lekki Phase 1, Lagos",
-    price: 2200000,
-    beds: 2,
-    baths: 2,
-    sqm: 95,
-    status: "active",
-    tenant: { name: "Chidinma Okoro", avatar: "CO" },
-    views: 156,
-    inquiries: 8,
-  },
-  {
-    id: 3,
-    title: "Spacious 4 Bedroom Duplex",
-    location: "Ikoyi, Lagos",
-    price: 5500000,
-    beds: 4,
-    baths: 3,
-    sqm: 220,
-    status: "pending",
-    tenant: null,
-    views: 0,
-    inquiries: 0,
-  },
-  {
-    id: 4,
-    title: "Executive Studio Apartment",
-    location: "Ikeja GRA, Lagos",
-    price: 1500000,
-    beds: 1,
-    baths: 1,
-    sqm: 55,
-    status: "inactive",
-    tenant: { name: "Yusuf Hassan", avatar: "YH" },
-    views: 89,
-    inquiries: 3,
-  },
-];
+import { landlordProperties as myProperties } from "@/lib/mockData";
 
 export default function LandlordPropertiesPage() {
   const [searchQuery, setSearchQuery] = useState("");

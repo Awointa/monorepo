@@ -35,103 +35,12 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { DashboardHeader } from "@/components/dashboard-header"
-
-// Mock data for properties the agent manages
-const managedProperties = [
-  {
-    id: 1,
-    title: "Luxury 3 Bedroom Apartment",
-    location: "Victoria Island, Lagos",
-    price: 3500000,
-    beds: 3,
-    baths: 2,
-    sqm: 150,
-    landlord: { name: "Chief Okonkwo", avatar: "CO" },
-    inquiries: 12,
-    status: "active",
-  },
-  {
-    id: 2,
-    title: "Modern 2 Bedroom Flat",
-    location: "Lekki Phase 1, Lagos",
-    price: 2200000,
-    beds: 2,
-    baths: 2,
-    sqm: 95,
-    landlord: { name: "Mrs. Adeleke", avatar: "MA" },
-    inquiries: 8,
-    status: "active",
-  },
-]
-
-// Mock data for available properties to apply
-const availableProperties = [
-  {
-    id: 3,
-    title: "Spacious 4 Bedroom Duplex",
-    location: "Ikoyi, Lagos",
-    price: 5500000,
-    beds: 4,
-    baths: 3,
-    sqm: 220,
-    landlord: { name: "Chief Okonkwo", avatar: "CO" },
-    postedAt: "2 days ago",
-  },
-  {
-    id: 4,
-    title: "Executive 5 Bedroom Mansion",
-    location: "Banana Island, Lagos",
-    price: 12000000,
-    beds: 5,
-    baths: 5,
-    sqm: 450,
-    landlord: { name: "Alhaji Bello", avatar: "AB" },
-    postedAt: "1 week ago",
-  },
-  {
-    id: 5,
-    title: "Cozy Studio Apartment",
-    location: "Yaba, Lagos",
-    price: 800000,
-    beds: 1,
-    baths: 1,
-    sqm: 40,
-    landlord: { name: "Mr. Obi", avatar: "MO" },
-    postedAt: "3 days ago",
-  },
-]
-
-// Mock data for applications
-const myApplications = [
-  {
-    id: 1,
-    property: "Executive 5 Bedroom Mansion",
-    landlord: "Alhaji Bello",
-    status: "pending",
-    appliedAt: "3 days ago",
-  },
-  {
-    id: 2,
-    property: "Penthouse Suite",
-    landlord: "Mrs. Fashola",
-    status: "accepted",
-    appliedAt: "1 week ago",
-  },
-  {
-    id: 3,
-    property: "Garden Terrace",
-    landlord: "Dr. Eze",
-    status: "declined",
-    appliedAt: "2 weeks ago",
-  },
-]
-
-const stats = [
-  { label: "Properties Managed", value: "2", icon: Building2, color: "bg-primary" },
-  { label: "Active Inquiries", value: "20", icon: MessageSquare, color: "bg-secondary" },
-  { label: "Average Rating", value: "4.8", icon: Star, color: "bg-accent" },
-  { label: "Total Earnings", value: "₦450K", icon: TrendingUp, color: "bg-primary" },
-]
+import {
+  agentAvailableProperties as availableProperties,
+  agentDashboardStats as stats,
+  agentManagedProperties as managedProperties,
+  agentMyApplications as myApplications,
+} from "@/lib/mockData"
 
 export default function AgentDashboard() {
   const [activeTab, setActiveTab] = useState<"managed" | "available" | "applications">("managed")

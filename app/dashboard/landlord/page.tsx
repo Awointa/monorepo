@@ -31,71 +31,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DashboardHeader } from "@/components/dashboard-header";
+import {
+  landlordDashboardStats as stats,
+  landlordMyProperties as myProperties,
+} from "@/lib/mockData";
 
 // Mock data for landlord's properties
-const myProperties = [
-  {
-    id: 1,
-    title: "Luxury 3 Bedroom Apartment",
-    location: "Victoria Island, Lagos",
-    price: 3500000,
-    beds: 3,
-    baths: 2,
-    sqm: 150,
-    status: "active",
-    views: 234,
-    inquiries: 12,
-    image: "/placeholder.svg?height=200&width=300",
-  },
-  {
-    id: 2,
-    title: "Modern 2 Bedroom Flat",
-    location: "Lekki Phase 1, Lagos",
-    price: 2200000,
-    beds: 2,
-    baths: 2,
-    sqm: 95,
-    status: "active",
-    views: 156,
-    inquiries: 8,
-    image: "/placeholder.svg?height=200&width=300",
-  },
-  {
-    id: 3,
-    title: "Spacious 4 Bedroom Duplex",
-    location: "Ikoyi, Lagos",
-    price: 5500000,
-    beds: 4,
-    baths: 3,
-    sqm: 220,
-    status: "pending",
-    views: 0,
-    inquiries: 0,
-    image: "/placeholder.svg?height=200&width=300",
-  },
-];
-
-const stats = [
-  {
-    label: "Total Properties",
-    value: "3",
-    icon: Building2,
-    color: "bg-primary",
-  },
-  {
-    label: "Active Listings",
-    value: "2",
-    icon: CheckCircle,
-    color: "bg-secondary",
-  },
-  { label: "Total Views", value: "390", icon: Eye, color: "bg-accent" },
-  {
-    label: "Monthly Revenue",
-    value: "5.7M",
-    icon: DollarSign,
-    color: "bg-primary",
-  },
-];
 
 export default function LandlordDashboard() {
   const [activeTab, setActiveTab] = useState<"properties" | "applications">(

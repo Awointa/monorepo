@@ -31,51 +31,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { DashboardHeader } from "@/components/dashboard-header"
-
-const managedProperties = [
-  {
-    id: 1,
-    title: "Luxury 3 Bedroom Apartment",
-    location: "Victoria Island, Lagos",
-    price: 3500000,
-    beds: 3,
-    baths: 2,
-    sqm: 150,
-    landlord: { name: "Chief Okonkwo", avatar: "CO" },
-    inquiries: 12,
-    views: 234,
-    status: "active",
-    listedDate: "Dec 15, 2024",
-  },
-  {
-    id: 2,
-    title: "Modern 2 Bedroom Flat",
-    location: "Lekki Phase 1, Lagos",
-    price: 2200000,
-    beds: 2,
-    baths: 2,
-    sqm: 95,
-    landlord: { name: "Mrs. Adeleke", avatar: "MA" },
-    inquiries: 8,
-    views: 156,
-    status: "active",
-    listedDate: "Dec 20, 2024",
-  },
-  {
-    id: 3,
-    title: "Spacious Studio Apartment",
-    location: "Ikeja GRA, Lagos",
-    price: 1200000,
-    beds: 1,
-    baths: 1,
-    sqm: 45,
-    landlord: { name: "Mr. Obi", avatar: "MO" },
-    inquiries: 5,
-    views: 89,
-    status: "rented",
-    listedDate: "Nov 10, 2024",
-  },
-]
+import { agentManagedPropertiesWithMetrics as managedProperties } from "@/lib/mockData"
 
 export default function AgentPropertiesPage() {
   const [searchQuery, setSearchQuery] = useState("")

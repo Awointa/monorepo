@@ -21,31 +21,14 @@ import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { DashboardHeader } from "@/components/dashboard-header"
+import {
+  tenantPastPayments as pastPayments,
+  tenantPaymentSchedule as paymentSchedule,
+  tenantWalletData as walletData,
+} from "@/lib/mockData"
 
 // Wallet balance - checked first before auto-deduction
-const walletData = {
-  balance: 150000,
-  lastTopUp: "Dec 28, 2024",
-  autoPayEnabled: true,
-}
-
-const paymentSchedule = [
-  { month: "Jan 2025", amount: 215000, status: "upcoming", dueDate: "Jan 15" },
-  { month: "Feb 2025", amount: 215000, status: "pending", dueDate: "Feb 15" },
-  { month: "Mar 2025", amount: 215000, status: "pending", dueDate: "Mar 15" },
-  { month: "Apr 2025", amount: 215000, status: "pending", dueDate: "Apr 15" },
-  { month: "May 2025", amount: 215000, status: "pending", dueDate: "May 15" },
-  { month: "Jun 2025", amount: 215000, status: "pending", dueDate: "Jun 15" },
-]
-
-const pastPayments = [
-  { month: "Dec 2024", amount: 215000, status: "paid", paidDate: "Dec 12", method: "Auto-debit" },
-  { month: "Nov 2024", amount: 215000, status: "paid", paidDate: "Nov 14", method: "Wallet" },
-  { month: "Oct 2024", amount: 215000, status: "paid", paidDate: "Oct 13", method: "Manual" },
-  { month: "Sep 2024", amount: 215000, status: "paid", paidDate: "Sep 15", method: "Auto-debit" },
-  { month: "Aug 2024", amount: 215000, status: "paid", paidDate: "Aug 12", method: "Wallet" },
-  { month: "Jul 2024", amount: 215000, status: "paid", paidDate: "Jul 14", method: "Manual" },
-]
+// (mock data lives in lib/mockData)
 
 export default function TenantPaymentsPage() {
   const [activeTab, setActiveTab] = useState<"upcoming" | "history" | "wallet">("upcoming")
