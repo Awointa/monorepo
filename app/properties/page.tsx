@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import {
   Heart,
   MapPin,
@@ -11,127 +10,16 @@ import {
   Square,
   Search,
   SlidersHorizontal,
-  X,
   Home,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { allProperties, propertyFilters } from "@/lib/mockData";
 
-const properties = [
-  {
-    id: 1,
-    title: "Modern 3 Bedroom Flat",
-    location: "Lekki Phase 1, Lagos",
-    price: 3500000,
-    beds: 3,
-    baths: 3,
-    sqm: 150,
-    image: "/properties/lekki-flat.jpg",
-    tag: "POPULAR",
-    tagColor: "bg-primary",
-    whistleblower: { name: "Chiamaka Okonkwo", rating: 4.8, reviews: 24 },
-  },
-  {
-    id: 2,
-    title: "Spacious 2 Bedroom Apartment",
-    location: "Wuse 2, Abuja",
-    price: 2800000,
-    beds: 2,
-    baths: 2,
-    sqm: 120,
-    image: "/properties/wuse-apt.jpg",
-    tag: "NEW",
-    tagColor: "bg-secondary",
-    whistleblower: { name: "Adanna Smith", rating: 4.9, reviews: 18 },
-  },
-  {
-    id: 3,
-    title: "Luxury 4 Bedroom Duplex",
-    location: "Ikoyi, Lagos",
-    price: 8500000,
-    beds: 4,
-    baths: 4,
-    sqm: 300,
-    image: "/properties/ikoyi-duplex.jpg",
-    tag: "PREMIUM",
-    tagColor: "bg-accent",
-    whistleblower: { name: "Chioma Ukaegbu", rating: 4.7, reviews: 31 },
-  },
-  {
-    id: 4,
-    title: "Cozy Studio Apartment",
-    location: "Yaba, Lagos",
-    price: 1200000,
-    beds: 1,
-    baths: 1,
-    sqm: 45,
-    image: "/properties/yaba-studio.jpg",
-    tag: null,
-    tagColor: null,
-    whistleblower: { name: "Blessing Okafor", rating: 4.5, reviews: 12 },
-  },
-  {
-    id: 5,
-    title: "Executive 3 Bedroom Flat",
-    location: "Victoria Island, Lagos",
-    price: 5500000,
-    beds: 3,
-    baths: 3,
-    sqm: 180,
-    image: "/properties/vi-flat.jpg",
-    tag: "HOT",
-    tagColor: "bg-destructive",
-    whistleblower: { name: "Tunde Adeyemi", rating: 4.6, reviews: 19 },
-  },
-  {
-    id: 6,
-    title: "Family 4 Bedroom Bungalow",
-    location: "Gwarimpa, Abuja",
-    price: 4200000,
-    beds: 4,
-    baths: 3,
-    sqm: 220,
-    image: "/properties/gwarimpa-bungalow.jpg",
-    tag: null,
-    tagColor: null,
-    whistleblower: { name: "Folake Adekunle", rating: 4.4, reviews: 8 },
-  },
-  {
-    id: 7,
-    title: "Modern 2 Bedroom Flat",
-    location: "Ikeja GRA, Lagos",
-    price: 2400000,
-    beds: 2,
-    baths: 2,
-    sqm: 100,
-    image: "/properties/ikeja-flat.jpg",
-    tag: "NEW",
-    tagColor: "bg-secondary",
-    whistleblower: { name: "Zainab Hassan", rating: 4.9, reviews: 27 },
-  },
-  {
-    id: 8,
-    title: "Penthouse Suite",
-    location: "Banana Island, Lagos",
-    price: 15000000,
-    beds: 5,
-    baths: 5,
-    sqm: 400,
-    image: "/properties/banana-penthouse.jpg",
-    tag: "LUXURY",
-    tagColor: "bg-accent",
-  },
-];
-
-const locations = ["All Locations", "Lagos", "Abuja", "Port Harcourt"];
-const priceRanges = [
-  "Any Price",
-  "Under ₦2M",
-  "₦2M - ₦5M",
-  "₦5M - ₦10M",
-  "Above ₦10M",
-];
-const bedOptions = ["Any", "1", "2", "3", "4+"];
+const properties = allProperties;
+const locations = propertyFilters.locations;
+const priceRanges = propertyFilters.priceRanges;
+const bedOptions = propertyFilters.bedOptions;
 
 export default function PropertiesPage() {
   const [favorites, setFavorites] = useState<number[]>([]);
@@ -143,7 +31,7 @@ export default function PropertiesPage() {
 
   const toggleFavorite = (id: number) => {
     setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((fid) => fid !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((fid) => fid !== id) : [...prev, id],
     );
   };
 
@@ -176,7 +64,7 @@ export default function PropertiesPage() {
     let matchesBeds = true;
     if (selectedBeds !== "Any") {
       if (selectedBeds === "4+") matchesBeds = property.beds >= 4;
-      else matchesBeds = property.beds === parseInt(selectedBeds);
+      else matchesBeds = property.beds === Number.parseInt(selectedBeds);
     }
 
     return matchesSearch && matchesLocation && matchesPrice && matchesBeds;
@@ -208,13 +96,13 @@ export default function PropertiesPage() {
                 placeholder="Search by location or property name..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="border-3 border-foreground bg-background pl-12 py-6 font-medium shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
+                className="border-3 border-foreground bg-background pl-12 py-6 font-medium shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] focus:translate-x-0.5 focus:translate-y-0.5 focus:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
               />
             </div>
 
             <Button
               onClick={() => setShowFilters(!showFilters)}
-              className="border-3 border-foreground bg-background px-6 py-6 font-bold text-foreground shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] md:w-auto"
+              className="border-3 border-foreground bg-background px-6 py-6 font-bold text-foreground shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] md:w-auto"
             >
               <SlidersHorizontal className="mr-2 h-5 w-5" />
               Filters
@@ -257,9 +145,9 @@ export default function PropertiesPage() {
 
               <div className="grid gap-6 md:grid-cols-3">
                 <div>
-                  <label className="mb-2 block font-mono text-sm font-bold">
+                  <p className="mb-2 block font-mono text-sm font-bold">
                     Location
-                  </label>
+                  </p>
                   <div className="flex flex-wrap gap-2">
                     {locations.map((loc) => (
                       <button
@@ -278,9 +166,9 @@ export default function PropertiesPage() {
                 </div>
 
                 <div>
-                  <label className="mb-2 block font-mono text-sm font-bold">
+                  <p className="mb-2 block font-mono text-sm font-bold">
                     Price Range (Annual)
-                  </label>
+                  </p>
                   <div className="flex flex-wrap gap-2">
                     {priceRanges.map((range) => (
                       <button
@@ -299,9 +187,9 @@ export default function PropertiesPage() {
                 </div>
 
                 <div>
-                  <label className="mb-2 block font-mono text-sm font-bold">
+                  <p className="mb-2 block font-mono text-sm font-bold">
                     Bedrooms
-                  </label>
+                  </p>
                   <div className="flex flex-wrap gap-2">
                     {bedOptions.map((beds) => (
                       <button
@@ -351,9 +239,9 @@ export default function PropertiesPage() {
               {filteredProperties.map((property) => (
                 <div
                   key={property.id}
-                  className="group border-3 border-foreground bg-card shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
+                  className="group border-3 border-foreground bg-card shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
                 >
-                  <div className="relative aspect-[4/3] border-b-3 border-foreground bg-muted">
+                  <div className="relative aspect-4/3 border-b-3 border-foreground bg-muted">
                     <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
                       <Home className="h-12 w-12" />
                     </div>
@@ -373,9 +261,7 @@ export default function PropertiesPage() {
                       }`}
                     >
                       <Heart
-                        className={`h-5 w-5 ${
-                          favorites.includes(property.id) ? "fill-current" : ""
-                        }`}
+                        className={`h-5 w-5 ${favorites.includes(property.id) ? "fill-current" : ""}`}
                       />
                     </button>
                   </div>
@@ -434,7 +320,7 @@ export default function PropertiesPage() {
                           </p>
                         </div>
                         <Link href={`/properties/${property.id}`}>
-                          <Button className="border-2 border-foreground bg-primary px-4 py-2 text-sm font-bold shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(26,26,26,1)]">
+                          <Button className="border-2 border-foreground bg-primary px-4 py-2 text-sm font-bold shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-px hover:translate-y-px hover:shadow-[1px_1px_0px_0px_rgba(26,26,26,1)]">
                             View
                           </Button>
                         </Link>

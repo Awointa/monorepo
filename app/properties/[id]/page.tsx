@@ -1,8 +1,6 @@
 "use client";
 
-import React from "react";
-import { use } from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
 import {
@@ -34,10 +32,7 @@ import {
   BedDouble,
   MessageSquare,
   Star,
-  Phone,
-  Clock,
   CheckCircle,
-  Eye,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -74,20 +69,10 @@ const properties = [
       { id: 6, label: "Balcony View", icon: TreePine },
     ],
     landlord: {
-      name: "Prime Properties Ltd",
+      name: "Estate Pro Management",
       verified: true,
-      listings: 12,
+      listings: 15,
       responseTime: "Within 24 hours",
-    },
-    agent: {
-      name: "Adebayo Johnson",
-      avatar: "AJ",
-      rating: 4.8,
-      reviews: 127,
-      propertiesManaged: 15,
-      responseTime: "Usually responds within 1 hour",
-      verified: true,
-      inspectionFee: 10000,
     },
     whistleblower: {
       name: "Chiamaka Okonkwo",
@@ -125,20 +110,10 @@ const properties = [
       { id: 5, label: "Guest Bedroom", icon: Bed },
     ],
     landlord: {
-      name: "Capital Homes Abuja",
+      name: "Quality Homes Ltd",
       verified: true,
-      listings: 8,
+      listings: 20,
       responseTime: "Within 12 hours",
-    },
-    agent: {
-      name: "Chioma Okafor",
-      avatar: "CO",
-      rating: 4.6,
-      reviews: 89,
-      propertiesManaged: 10,
-      responseTime: "Usually responds within 2 hours",
-      verified: true,
-      inspectionFee: 8000,
     },
     whistleblower: {
       name: "Adanna Smith",
@@ -181,10 +156,10 @@ const properties = [
       { id: 8, label: "Pool Area", icon: Waves },
     ],
     landlord: {
-      name: "Luxury Living Nigeria",
+      name: "Urban Living Spaces",
       verified: true,
-      listings: 5,
-      responseTime: "Within 6 hours",
+      listings: 8,
+      responseTime: "Within 48 hours",
     },
     agent: {
       name: "Emeka Nwosu",
@@ -270,9 +245,9 @@ const properties = [
       { id: 6, label: "City View", icon: TreePine },
     ],
     landlord: {
-      name: "VI Executive Homes",
+      name: "Luxury Estates Nigeria",
       verified: true,
-      listings: 15,
+      listings: 25,
       responseTime: "Within 6 hours",
     },
     agent: {
@@ -360,10 +335,10 @@ const properties = [
       { id: 5, label: "Guest Bedroom", icon: Bed },
     ],
     landlord: {
-      name: "GRA Properties",
+      name: "Metropolitan Properties",
       verified: true,
-      listings: 7,
-      responseTime: "Within 12 hours",
+      listings: 30,
+      responseTime: "Within 2 hours",
     },
     agent: {
       name: "Kola Adesanya",
@@ -418,7 +393,7 @@ const properties = [
     agent: {
       name: "Ngozi Eze",
       avatar: "NE",
-      rating: 5.0,
+      rating: 5,
       reviews: 312,
       propertiesManaged: 6,
       responseTime: "Usually responds within 15 minutes",
@@ -469,7 +444,7 @@ export default function PropertyDetailPage() {
   const [paymentMonths, setPaymentMonths] = useState(12);
 
   const id = params.id as string;
-  const property = properties.find((p) => p.id === parseInt(id));
+  const property = properties.find((p) => p.id === Number.parseInt(id));
 
   if (!property) {
     return (
@@ -504,7 +479,7 @@ export default function PropertyDetailPage() {
   const amountToFinance = property.price - minDeposit;
   const inspectionFee = amountToFinance * 0.075;
   const monthlyPayment = Math.round(
-    (amountToFinance + inspectionFee) / paymentMonths
+    (amountToFinance + inspectionFee) / paymentMonths,
   );
 
   const nextImage = () => {
@@ -513,7 +488,7 @@ export default function PropertyDetailPage() {
 
   const prevImage = () => {
     setActiveImageIndex(
-      (prev) => (prev - 1 + property.images.length) % property.images.length
+      (prev) => (prev - 1 + property.images.length) % property.images.length,
     );
   };
 
@@ -538,10 +513,14 @@ export default function PropertyDetailPage() {
           <div className="grid gap-4 lg:grid-cols-3">
             {/* Main Image */}
             <div className="lg:col-span-2">
-              <div
-                className="relative aspect-[16/10] border-3 border-foreground bg-muted shadow-[6px_6px_0px_0px_rgba(26,26,26,1)] cursor-pointer overflow-hidden group"
-                onClick={() => setShowLightbox(true)}
-              >
+              <div className="relative aspect-16/10 w-full border-3 border-foreground bg-muted shadow-[6px_6px_0px_0px_rgba(26,26,26,1)] overflow-hidden group">
+                <button
+                  type="button"
+                  aria-label="Open image gallery"
+                  aria-haspopup="dialog"
+                  className="absolute inset-0 z-10"
+                  onClick={() => setShowLightbox(true)}
+                />
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground">
                   {(() => {
                     const IconComponent =
@@ -568,7 +547,7 @@ export default function PropertyDetailPage() {
                     e.stopPropagation();
                     prevImage();
                   }}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center border-3 border-foreground bg-background shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 z-20 flex h-12 w-12 items-center justify-center border-3 border-foreground bg-background shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] opacity-0 group-hover:opacity-100 transition-opacity"
                 >
                   <ChevronLeft className="h-6 w-6" />
                 </button>
@@ -577,13 +556,13 @@ export default function PropertyDetailPage() {
                     e.stopPropagation();
                     nextImage();
                   }}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center border-3 border-foreground bg-background shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 z-20 flex h-12 w-12 items-center justify-center border-3 border-foreground bg-background shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] opacity-0 group-hover:opacity-100 transition-opacity"
                 >
                   <ChevronRight className="h-6 w-6" />
                 </button>
 
                 {/* Image Counter */}
-                <div className="absolute bottom-4 right-4 border-2 border-foreground bg-background px-3 py-1 font-mono text-sm font-bold">
+                <div className="absolute bottom-4 right-4 z-20 border-2 border-foreground bg-background px-3 py-1 font-mono text-sm font-bold">
                   {activeImageIndex + 1} / {property.images.length}
                 </div>
               </div>
@@ -600,7 +579,7 @@ export default function PropertyDetailPage() {
                     className={`relative aspect-square border-3 border-foreground bg-muted transition-all ${
                       activeImageIndex === index
                         ? "shadow-[4px_4px_0px_0px_rgba(255,107,53,1)] ring-2 ring-primary"
-                        : "shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] hover:translate-x-[1px] hover:translate-y-[1px]"
+                        : "shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] hover:translate-x-px hover:translate-y-px"
                     }`}
                   >
                     <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground p-2">
@@ -615,7 +594,7 @@ export default function PropertyDetailPage() {
               {property.images.length > 6 && (
                 <button
                   onClick={() => setShowLightbox(true)}
-                  className="relative aspect-square border-3 border-foreground bg-foreground text-background shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all"
+                  className="relative aspect-square border-3 border-foreground bg-foreground text-background shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] hover:translate-x-px hover:translate-y-px transition-all"
                 >
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
                     <span className="font-mono text-2xl font-black">
@@ -645,17 +624,15 @@ export default function PropertyDetailPage() {
                   <div className="flex gap-2">
                     <button
                       onClick={() => setIsFavorite(!isFavorite)}
-                      className={`flex h-10 w-10 items-center justify-center border-3 border-foreground bg-background shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] sm:h-12 sm:w-12 ${
+                      className={`flex h-10 w-10 items-center justify-center border-3 border-foreground bg-background shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-px hover:translate-y-px hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] sm:h-12 sm:w-12 ${
                         isFavorite ? "text-destructive" : ""
                       }`}
                     >
                       <Heart
-                        className={`h-4 w-4 sm:h-5 sm:w-5 ${
-                          isFavorite ? "fill-current" : ""
-                        }`}
+                        className={`h-4 w-4 sm:h-5 sm:w-5 ${isFavorite ? "fill-current" : ""}`}
                       />
                     </button>
-                    <button className="flex h-10 w-10 items-center justify-center border-3 border-foreground bg-background shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] sm:h-12 sm:w-12">
+                    <button className="flex h-10 w-10 items-center justify-center border-3 border-foreground bg-background shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-px hover:translate-y-px hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)] sm:h-12 sm:w-12">
                       <Share2 className="h-4 w-4 sm:h-5 sm:w-5" />
                     </button>
                   </div>
@@ -710,7 +687,7 @@ export default function PropertyDetailPage() {
                     const IconComponent = featureIcons[feature] || Check;
                     return (
                       <div
-                        key={index}
+                        key={`${feature}-${index}`}
                         className="flex items-center gap-3 border-2 border-foreground bg-muted p-3"
                       >
                         <div className="flex h-8 w-8 items-center justify-center bg-secondary border-2 border-foreground">
@@ -741,7 +718,7 @@ export default function PropertyDetailPage() {
                           setActiveImageIndex(index);
                           setShowLightbox(true);
                         }}
-                        className="group relative aspect-[4/3] border-3 border-foreground bg-muted shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
+                        className="group relative aspect-4/3 border-3 border-foreground bg-muted shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
                       >
                         <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground group-hover:text-foreground transition-colors">
                           <IconComponent className="h-12 w-12 mb-2" />
@@ -779,9 +756,9 @@ export default function PropertyDetailPage() {
                     </div>
 
                     <div className="mb-4">
-                      <label className="block text-sm font-medium mb-2">
+                      <p className="block text-sm font-medium mb-2">
                         Payment Duration
-                      </label>
+                      </p>
                       <div className="flex gap-2">
                         {[3, 6, 12].map((months) => (
                           <button
@@ -816,7 +793,7 @@ export default function PropertyDetailPage() {
                   </div>
 
                   <Link href={`/calculator?amount=${property.price}`}>
-                    <Button className="w-full border-3 border-foreground bg-primary py-6 font-mono text-lg font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]">
+                    <Button className="w-full border-3 border-foreground bg-primary py-6 font-mono text-lg font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]">
                       Apply Now
                     </Button>
                   </Link>
@@ -825,98 +802,6 @@ export default function PropertyDetailPage() {
                     Get instant approval in minutes
                   </p>
                 </div>
-
-                {/* Agent Contact Card */}
-                {property.agent && (
-                  <div className="border-3 border-foreground bg-card p-6 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)]">
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="font-mono font-bold">Property Agent</h3>
-                      {property.agent.verified && (
-                        <span className="inline-flex items-center gap-1 border-2 border-secondary bg-secondary/20 px-2 py-1 text-xs font-bold text-secondary">
-                          <CheckCircle className="h-3 w-3" /> Verified
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="relative">
-                        <div className="flex h-16 w-16 items-center justify-center border-3 border-foreground bg-accent font-mono text-xl font-bold">
-                          {property.agent.avatar}
-                        </div>
-                        <div className="absolute -bottom-1 -right-1 h-4 w-4 border-2 border-foreground bg-secondary" />
-                      </div>
-                      <div>
-                        <p className="text-lg font-bold">
-                          {property.agent.name}
-                        </p>
-                        <div className="flex items-center gap-1 mt-1">
-                          <Star className="h-4 w-4 fill-accent text-accent" />
-                          <span className="font-bold">
-                            {property.agent.rating}
-                          </span>
-                          <span className="text-xs text-muted-foreground">
-                            ({property.agent.reviews} reviews)
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="space-y-2 text-sm mb-4 border-t-2 border-foreground pt-4">
-                      <p className="flex items-center gap-2">
-                        <Home className="h-4 w-4 text-muted-foreground" />
-                        <span className="text-muted-foreground">
-                          Properties:
-                        </span>
-                        <span className="font-bold ml-auto">
-                          {property.agent.propertiesManaged}
-                        </span>
-                      </p>
-                      <p className="flex items-center gap-2">
-                        <Clock className="h-4 w-4 text-muted-foreground" />
-                        <span className="text-muted-foreground">Response:</span>
-                        <span className="font-bold ml-auto text-xs">
-                          {property.agent.responseTime}
-                        </span>
-                      </p>
-                      <p className="flex items-center gap-2">
-                        <Eye className="h-4 w-4 text-muted-foreground" />
-                        <span className="text-muted-foreground">
-                          Inspection Fee:
-                        </span>
-                        <span className="font-bold ml-auto text-primary">
-                          {formatPrice(property.agent.inspectionFee)}
-                        </span>
-                      </p>
-                    </div>
-
-                    <div className="border-2 border-dashed border-primary/50 bg-primary/5 p-3 mb-4">
-                      <p className="text-xs text-muted-foreground text-center">
-                        Inspection fee is paid directly to the agent when
-                        scheduling a property viewing
-                      </p>
-                    </div>
-
-                    <div className="space-y-2">
-                      <Link href="/messages">
-                        <Button className="w-full border-3 border-foreground bg-secondary py-5 font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]">
-                          <MessageSquare className="mr-2 h-5 w-5" />
-                          Message Agent
-                        </Button>
-                      </Link>
-                      <Button
-                        variant="outline"
-                        className="w-full border-3 border-foreground bg-transparent py-5 font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
-                      >
-                        <Phone className="mr-2 h-5 w-5" />
-                        Request Call Back
-                      </Button>
-                    </div>
-
-                    <p className="text-center text-xs text-muted-foreground mt-3">
-                      Your contact info stays private until you choose to share
-                    </p>
-                  </div>
-                )}
 
                 {/* Whistleblower Info */}
                 {property.whistleblower && (
@@ -961,7 +846,7 @@ export default function PropertyDetailPage() {
                     </div>
 
                     <Link href="/messages">
-                      <Button className="w-full mt-4 border-3 border-secondary bg-secondary py-5 font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]">
+                      <Button className="w-full mt-4 border-3 border-secondary bg-secondary py-5 font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]">
                         <MessageSquare className="mr-2 h-5 w-5" />
                         Message {property.whistleblower.name}
                       </Button>
@@ -1005,7 +890,7 @@ export default function PropertyDetailPage() {
                   </div>
                   <Button
                     variant="outline"
-                    className="w-full mt-4 border-3 border-foreground bg-transparent py-5 font-bold shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
+                    className="w-full mt-4 border-3 border-foreground bg-transparent py-5 font-bold shadow-[3px_3px_0px_0px_rgba(26,26,26,1)] transition-all hover:translate-x-px hover:translate-y-px hover:shadow-[2px_2px_0px_0px_rgba(26,26,26,1)]"
                   >
                     Contact Landlord
                   </Button>
@@ -1034,7 +919,7 @@ export default function PropertyDetailPage() {
           </button>
 
           <div className="max-w-4xl w-full">
-            <div className="relative aspect-[16/10] border-3 border-background bg-muted">
+            <div className="relative aspect-16/10 border-3 border-background bg-muted">
               <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground">
                 {(() => {
                   const IconComponent = property.images[activeImageIndex].icon;
