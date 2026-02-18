@@ -63,7 +63,7 @@ export const propertyInspectionReport = {
       {
         title: "INSPECTION OVERVIEW",
         content:
-          "Property Inspection conducted on 28th December 2024 by Agent Adebayo Johnson. This report documents the condition of the property at lease commencement.",
+          "Property Inspection conducted on 28th December 2024. This report documents the condition of the property at lease commencement.",
       },
       {
         title: "EXTERIOR CONDITION",
@@ -172,9 +172,8 @@ export const paymentSchedule = {
       {
         title: "ADDITIONAL COSTS (Not included in rent)",
         items: [
-          "Inspection fee: Varies by agent (₦5,000 - ₦25,000)",
+          "Inspection fee: ₦5,000 - ₦25,000 (property verification)",
           "Agreement fee: ₦10,000 (if applicable)",
-          "Commission: Percentage based on annual rent",
           "Utilities: Electricity and water bills payable separately",
         ],
       },
